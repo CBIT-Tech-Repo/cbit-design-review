@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI at CBIT | CBIT Venture Builder</title>
+<meta name="description" content="How AI runs through every CBIT service: the positioning statement, what AI-native means for people and ventures, and the evidence behind it.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="assets/img/logos/cbit-favicon.png">
+<link rel="preload" href="assets/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.v4.css">
+<script>
+/* Applied before first paint: JavaScript flag and the review-notes setting (mockups only). */
+(function (h) {
+  h.className = h.className.replace('no-js', 'js');
+  try {
+    if (localStorage.getItem('cbit-mockup-notes') === 'on') { h.classList.add('review-on'); }
+  } catch (e) { /* storage blocked: defaults apply */ }
+})(document.documentElement);
+</script>
+<script src="assets/js/site.v4.js" defer></script>
+</head>
+<body class="layout-site page-about-ai">
+<a class="skip-link" href="#main">Skip to main content</a>
+<div class="ntu-bar" id="ntu-bar">
+  <div class="wrap ntu-bar__inner">
+    <a class="ntu-bar__logo" href="https://www.ntu.ac.uk/"><img src="assets/img/logos/ntu-logo.svg" width="220" height="96" alt="Nottingham Trent University"></a>
+    <details class="ntu-bar__search" data-ntu-search>
+      <summary class="ntu-bar__search-btn" aria-controls="ntu-search-panel" aria-label="Show search">
+        <svg class="icon-open" width="26" height="26" viewBox="0 0 26 26" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="8" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M16.8 16.8l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>
+        <svg class="icon-close" width="26" height="26" viewBox="0 0 26 26" aria-hidden="true" focusable="false"><path d="M5 5l16 16M21 5L5 21" fill="none" stroke="currentColor" stroke-width="2.4"/></svg>
+      </summary>
+    </details>
+    <div class="ntu-bar__tools" id="ntu-search-panel">
+      <ul class="ntu-utility">
+        <li><a href="https://www.ntu.ac.uk/studenthub">Students</a></li>
+        <li><a href="https://www.ntu.ac.uk/myhub">Staff</a></li>
+        <li><a href="https://www.ntu.ac.uk/jobs">Jobs</a></li>
+      </ul>
+      <form class="ntu-search" role="search" method="get" action="https://search.ntu.ac.uk/s/search.html">
+        <div class="ntu-search__row">
+          <label class="visually-hidden" for="ntu-search-input">Search NTU</label>
+          <input class="ntu-search__input" id="ntu-search-input" type="text" name="query" placeholder="Search NTU" autocomplete="off">
+          <button class="ntu-search__submit" type="submit" aria-label="Search">
+            <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M16.6 16.6l6.2 6.2" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+        <fieldset class="ntu-search__cats">
+          <legend class="visually-hidden">Search in</legend>
+          <label><input type="radio" name="_categoryUi" value="all" checked> All</label>
+          <label><input type="radio" name="_categoryUi" value="courses"> Courses</label>
+          <label><input type="radio" name="_categoryUi" value="research"> Research</label>
+          <label><input type="radio" name="_categoryUi" value="staff"> Staff Directory</label>
+        </fieldset>
+        <input type="hidden" name="collection" value="ntu~sp-search">
+        <input type="hidden" name="f.Tabs|AllDocumentsFill" value="All">
+      </form>
+    </div>
+  </div>
+</div>
+<header class="vb-bar" id="vb-bar">
+  <div class="wrap vb-bar__inner">
+    <a class="vb-bar__logo" href="2026.09.30.site.home.html" aria-label="Centre for Business and Industry Transformation (CBIT), CBIT Venture Builder home"><img src="assets/img/logos/cbit-white.png" width="1667" height="393" alt=""></a>
+    <details class="vb-bar__toggle" data-vb-menu>
+      <summary class="vb-bar__menu" aria-controls="vb-sections">
+        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M2 4.5h16M2 10h16M2 15.5h16" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+        <span>Menu</span>
+      </summary>
+    </details>
+    <nav class="vb-bar__nav" id="vb-sections" aria-label="Main">
+      <ul class="vb-bar__list">
+        <li class="vb-bar__item vb-bar__item--work vb-bar__item--menu" data-menu><a class="vb-bar__link" href="2026.09.30.site.work.with.us.html" data-menu-link><span class="vb-bar__label">Work with us</span></a><div class="vb-menu vb-menu--audiences" id="vb-menu-work" hidden><div class="wrap vb-menu__inner"><div class="vb-audiences"><div class="vb-audiences__col"><p class="vb-audiences__name" id="vb-aud-founders"><a class="vb-menu__title-link" href="2026.09.30.site.founders.html">Founders and SMEs</a></p><p class="vb-audiences__tagline">Start or grow a venture</p><ul class="vb-audiences__list" aria-labelledby="vb-aud-founders"><li><a class="vb-menu__link" href="2026.09.30.site.service.venture.builder.html">CBIT Venture Builder</a></li><li><a class="vb-menu__link" href="2026.09.30.site.service.steam.founder.html">STEAM Founder</a></li><li><a class="vb-menu__link" href="2026.09.30.site.service.global.vb.html">Global VB Partnership</a></li></ul><ul class="vb-audiences__more"><li><a class="vb-menu__link vb-menu__link--path" href="2026.09.30.site.path.venture.start.html">Help me choose</a></li><li class="vb-menu__inbox">Email <a href="mailto:cbit.vb@ntu.ac.uk">cbit.vb@ntu.ac.uk</a></li></ul></div><div class="vb-audiences__col"><p class="vb-audiences__name" id="vb-aud-business-leaders"><a class="vb-menu__title-link" href="2026.09.30.site.business.leaders.html">Business leaders and companies</a></p><p class="vb-audiences__tagline">Develop your leaders and teams</p><ul class="vb-audiences__list" aria-labelledby="vb-aud-business-leaders"><li><a class="vb-menu__link" href="2026.09.30.site.service.executive.programmes.html">Executive programmes</a></li><li><a class="vb-menu__link" href="2026.09.30.site.service.venture.builder.html#corporate-entrepreneurs">Build a venture in your company</a></li><li><a class="vb-menu__link" href="2026.09.30.site.service.funded.projects.html">Funded AI projects</a></li></ul><ul class="vb-audiences__more"><li><a class="vb-menu__link vb-menu__link--path" href="2026.09.30.site.path.leaders.start.html">Help me choose</a></li><li class="vb-menu__inbox">Email <a href="mailto:cbit.edu@ntu.ac.uk">cbit.edu@ntu.ac.uk</a></li></ul></div><div class="vb-audiences__col"><p class="vb-audiences__name" id="vb-aud-research-leaders"><a class="vb-menu__title-link" href="2026.09.30.site.research.leaders.html">Research and university leaders</a></p><p class="vb-audiences__tagline">Win interdisciplinary research, and turn it into ventures and impact</p><ul class="vb-audiences__list" aria-labelledby="vb-aud-research-leaders"><li><a class="vb-menu__link" href="2026.09.30.site.service.steam.xcelerate.html">Interdisciplinary research bids</a></li><li><a class="vb-menu__link" href="2026.09.30.site.service.venture.partner.html">Venture partner for your bid</a></li><li><a class="vb-menu__link" href="2026.09.30.site.path.research.o.executive.phd.html">Executive PhD routes for bids</a></li></ul><ul class="vb-audiences__more"><li><a class="vb-menu__link vb-menu__link--path" href="2026.09.30.site.path.research.start.html">Help me choose</a></li><li class="vb-menu__inbox">Email <a href="mailto:cbit@ntu.ac.uk">cbit@ntu.ac.uk</a></li></ul></div><div class="vb-audiences__col"><p class="vb-audiences__name" id="vb-aud-government-leaders"><a class="vb-menu__title-link" href="2026.09.30.site.government.leaders.html">Government leaders and international partners</a></p><p class="vb-audiences__tagline">Build national and regional capability</p><ul class="vb-audiences__list" aria-labelledby="vb-aud-government-leaders"><li><a class="vb-menu__link" href="2026.09.30.site.service.executive.programmes.html#ministries">National AI skills programmes</a></li><li><a class="vb-menu__link" href="2026.09.30.site.service.global.vb.html#founder-sprints">Send a founder cohort to the UK</a></li><li><a class="vb-menu__link" href="2026.09.30.site.service.sister.centres.html">Sister centres</a></li></ul><ul class="vb-audiences__more"><li><a class="vb-menu__link vb-menu__link--path" href="2026.09.30.site.path.partner.start.html">Help me choose</a></li><li class="vb-menu__inbox">Email <a href="mailto:cbit@ntu.ac.uk">cbit@ntu.ac.uk</a></li></ul></div></div></div></div></li>
+        <li class="vb-bar__item vb-bar__item--services vb-bar__item--menu" data-menu><a class="vb-bar__link" href="2026.09.30.site.services.html" data-menu-link><span class="vb-bar__label">Services</span></a><div class="vb-menu vb-menu--families" id="vb-menu-services" hidden><div class="wrap vb-menu__inner"><div class="vb-families"><div class="vb-families__col"><p class="vb-families__title" id="vb-fam-build">Build ventures</p><ul class="vb-families__list" aria-labelledby="vb-fam-build"><li><a class="vb-menu__link" href="2026.09.30.site.service.venture.builder.html">CBIT Venture Builder</a></li><li><a class="vb-menu__link" href="2026.09.30.site.service.steam.founder.html">STEAM Founder</a></li><li><a class="vb-menu__link" href="2026.09.30.site.service.global.vb.html">Global VB Partnership</a></li><li><a class="vb-menu__link" href="2026.09.30.site.service.venture.builder.html#corporate-entrepreneurs">Build a venture in your company</a></li></ul></div><div class="vb-families__col"><p class="vb-families__title" id="vb-fam-develop">Develop people</p><ul class="vb-families__list" aria-labelledby="vb-fam-develop"><li><a class="vb-menu__link" href="2026.09.30.site.service.executive.programmes.html">Executive programmes</a></li><li><a class="vb-menu__link" href="2026.09.30.site.service.executive.programmes.html#ministries">National AI skills programmes</a></li><li><a class="vb-menu__link" href="2026.09.30.site.service.executive.programmes.html#going-global">AI-Empowered Going Global</a></li><li><a class="vb-menu__link" href="2026.09.30.site.service.executive.programmes.html#microcredential">Microcredential</a></li><li><a class="vb-menu__link" href="2026.09.30.site.founders.html#msc">The MSc</a></li><li><a class="vb-menu__link" href="2026.09.30.site.service.executive.programmes.html#executive-phd">Executive PhD</a></li></ul></div><div class="vb-families__col"><p class="vb-families__title" id="vb-fam-research">Research and innovation</p><ul class="vb-families__list" aria-labelledby="vb-fam-research"><li><a class="vb-menu__link" href="2026.09.30.site.service.steam.xcelerate.html">Interdisciplinary research bids</a></li><li><a class="vb-menu__link" href="2026.09.30.site.service.venture.partner.html">Venture partner for your bid</a></li><li><a class="vb-menu__link" href="2026.09.30.site.path.research.o.executive.phd.html">Executive PhD routes for bids</a></li><li><a class="vb-menu__link" href="2026.09.30.site.service.funded.projects.html">Funded AI projects</a></li></ul></div><div class="vb-families__col"><p class="vb-families__title" id="vb-fam-partner">Partnerships</p><ul class="vb-families__list" aria-labelledby="vb-fam-partner"><li><a class="vb-menu__link" href="2026.09.30.site.service.ecosystem.building.html">Innovation ecosystem building</a></li><li><a class="vb-menu__link" href="2026.09.30.site.service.sister.centres.html">Sister centres</a></li><li><a class="vb-menu__link" href="2026.09.30.site.government.leaders.html#regional-sme-programmes">Regional SME programmes (TNDRX)</a></li><li><a class="vb-menu__link" href="2026.09.30.site.keynotes.html">Keynotes and masterclasses</a></li></ul></div></div></div></div></li>
+        <li class="vb-bar__item vb-bar__item--impact vb-bar__item--menu vb-bar__item--compact" data-menu><a class="vb-bar__link" href="2026.09.30.site.impact.ventures.html" data-menu-link><span class="vb-bar__label">Impact</span></a><div class="vb-menu vb-menu--compact" id="vb-menu-impact" hidden><div class="wrap vb-menu__inner"><ul class="vb-menu__list"><li><a class="vb-menu__link" href="2026.09.30.site.impact.ventures.html">Ventures</a></li><li><a class="vb-menu__link" href="2026.09.30.site.impact.research.projects.html">Research projects and grants</a></li><li><a class="vb-menu__link" href="2026.09.30.site.impact.publications.html">Publications</a></li><li><a class="vb-menu__link" href="2026.09.30.site.keynotes.html#keynotes-and-talks">Keynotes and talks</a></li><li><a class="vb-menu__link" href="2026.09.30.site.impact.stories.html">Stories</a></li></ul></div></div></li>
+        <li class="vb-bar__item vb-bar__item--news-events"><a class="vb-bar__link" href="2026.09.30.site.news.events.html"><span class="vb-bar__label">News and events</span></a></li>
+        <li class="vb-bar__item vb-bar__item--about vb-bar__item--menu vb-bar__item--compact" data-menu><a class="vb-bar__link" href="2026.09.30.site.about.how.we.work.html" data-menu-link aria-current="true"><span class="vb-bar__label">About</span></a><div class="vb-menu vb-menu--compact" id="vb-menu-about" hidden><div class="wrap vb-menu__inner"><ul class="vb-menu__list"><li><a class="vb-menu__link" href="2026.09.30.site.about.how.we.work.html">How we work</a></li><li><a class="vb-menu__link" href="2026.09.30.site.about.people.html">Team and partners</a></li><li><a class="vb-menu__link" href="2026.09.30.site.about.ai.html" aria-current="page">AI at CBIT</a></li><li><a class="vb-menu__link" href="2026.09.30.site.platforms.html">Digital platforms</a></li><li><a class="vb-menu__link" href="2026.09.30.site.contact.html">Contact</a></li></ul></div></div></li>
+      </ul>
+      <a class="vb-bar__vb vb-bar__vb--panel" href="2026.09.30.site.service.venture.builder.html" aria-label="CBIT Venture Builder programme"><img src="assets/img/logos/vb-logo-white.png" width="258" height="64" alt=""></a>
+    </nav>
+    <a class="vb-bar__vb" href="2026.09.30.site.service.venture.builder.html" aria-label="CBIT Venture Builder programme"><img src="assets/img/logos/vb-logo-white.png" width="258" height="64" alt=""></a>
+    <a class="vb-bar__apply vb-bar__apply--outline" href="2026.09.30.site.path.venture.start.html" aria-label="Apply to the CBIT Venture Builder">Apply</a>
+  </div>
+</header>
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <div class="wrap">
+    <ol class="breadcrumb__list">
+      <li><a href="2026.09.30.site.home.html">CBIT Venture Builder</a></li>
+      <li><span aria-current="page">AI at CBIT</span></li>
+    </ol>
+  </div>
+</nav>
+<nav class="section-pages" aria-label="About pages">
+  <div class="wrap section-pages__inner">
+    <p class="section-pages__title">In About</p>
+    <ul class="section-pages__list"><li><a href="2026.09.30.site.about.how.we.work.html">How we work</a></li><li><a href="2026.09.30.site.about.people.html">Team and partners</a></li><li><a href="2026.09.30.site.about.ai.html" aria-current="page">AI at CBIT</a></li><li><a href="2026.09.30.site.platforms.html">Digital platforms</a></li><li><a href="2026.09.30.site.contact.html">Contact</a></li></ul>
+  </div>
+</nav>
+<main id="main" class="main" tabindex="-1">
+
+
+<section class="hero hero--text" aria-labelledby="page-title">
+  <div class="wrap hero__inner">
+    <div class="hero__body">
+      <p class="eyebrow">About</p>
+      <h1 id="page-title">AI at CBIT</h1>
+      <p class="lead" data-review="AI1 — the positioning statement (v3 2a), adopted as drafted. The Thai programme names MHESI in full and follows ruling 3 (funded by MHESI, delivered by CBIT and CMU STeP); the credit line to STeP is still needed (SM12, AI10).">AI runs through every CBIT service, because it now runs through the work of everyone we serve. The method leads and AI empowers it. Founders build AI-native ventures. Leaders rebuild real processes with AI. Research teams design AI into their bids and their routes to impact. Governments build AI-skilled workforces. This is how CBIT already works: from the national AI and entrepreneurship programme funded by Thailand’s Ministry of Higher Education, Science, Research and Innovation (MHESI) and delivered by CBIT and Chiang Mai University’s Science and Technology Park (CMU STeP), to AI digital twin research for beef farming and for London’s surplus food.</p>
+      <p class="hero__strap">Every CBIT service is AI-empowered, so the people and ventures we work with become AI-native.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tint ai-native-band" aria-labelledby="h-ai-native">
+  <div class="wrap">
+    <h2 id="h-ai-native">AI-native, defined</h2>
+    <p class="section__intro" data-review="AI2 — adopted as drafted (v3 2b). “AI-native” is the site’s adjective; Professor Xiao Ma’s own noun, “AI natives”, stays only in his quoted words (C-150).">What changes, in plain terms, when a person or a venture becomes AI-native: not a tools certificate, but how they work, decide and grow.</p>
+    <div class="ai-native-defs">
+      <article class="ai-native-def" id="ai-native-people">
+        <h3>AI-native people: leaders, staff, researchers and students</h3>
+        <p class="ai-native-def__one">An AI-native person uses AI as a normal part of their own work, and stays answerable for the result.</p>
+        <dl>
+          <dt>Work</dt>
+          <dd>They hand defined tasks to AI assistants and agents inside their real workflows (research, drafting, analysis, customer and operational tasks) and check the output against a standard they own.</dd>
+          <dt>Decide</dt>
+          <dd>They use AI to widen the options and test their own view before they decide, and they set the rule for when AI is not used or an agent is stopped.</dd>
+          <dt>Grow</dt>
+          <dd>They keep learning as the tools change, redesign one process at a time, and can teach others to do the same.</dd>
+        </dl>
+        <p class="ai-native-def__test"><strong>A plain test:</strong> give them a new task. They can say which parts AI should do, set it up, check the result and explain the decision.</p>
+        <p class="ai-native-def__not"><strong>What it is not:</strong> a tools certificate or a job title. It shows in the work: what the person now does with AI, and what they still decide themselves.</p>
+      </article>
+      <article class="ai-native-def" id="ai-native-ventures">
+        <h3>AI-native ventures: founders, SMEs and spinouts</h3>
+        <p class="ai-native-def__one">An AI-native venture is built so that AI does a defined share of its work from the start, with people setting direction and checking quality.</p>
+        <dl>
+          <dt>Work</dt>
+          <dd>Its core processes (market research, sales and marketing, operations, reporting) run as written workflows in which AI does named steps and people check them.</dd>
+          <dt>Decide</dt>
+          <dd>It decides on evidence it can refresh quickly: AI scans the market, tests problem–solution fit and models options before money is committed.</dd>
+          <dt>Grow</dt>
+          <dd>It can enter a new market or sector without first rebuilding its cost base: AI helps it localise the offer, find partners and meet new rules.</dd>
+        </dl>
+        <p class="ai-native-def__test"><strong>A plain test:</strong> ask to see one core process. An AI-native venture can show the workflow, which steps AI does, who checks them and what it costs to run.</p>
+        <p class="ai-native-def__not"><strong>What it is not:</strong> the same as an AI company. A farm, a manufacturer or a grooming brand can be AI-native; an AI start-up can still run its back office by hand.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="h-track-record">
+  <div class="wrap">
+    <h2 id="h-track-record">Track record</h2>
+    <p class="section__intro">CBIT was founded in April 2022. Work from before then is labelled “Before CBIT”, and is never counted with CBIT’s own record.</p>
+
+    <div class="ai-evidence">
+      <h3>Recognition from MHESI, Thailand</h3>
+      <ul class="ticks ai-evidence__list">
+        <li><span class="ai-evidence__era">CBIT</span> Professor Xiao Ma gave the special panel talk at MHESI’s launch of its national AI e-learning platform, in Bangkok on 16 December 2025.</li>
+        <li><span class="ai-evidence__era">CBIT</span> In April 2026, MHESI and Nottingham Trent University signed a five-year memorandum of understanding whose cooperation focuses on AI-enabled education, venture building, global innovation ecosystem development and industrial challenge-driven research. <a href="2026.09.30.site.government.leaders.html">The recognition in full</a>.</li>
+      </ul>
+
+      <h3>Executives, credentials and convening</h3>
+      <ul class="ticks ai-evidence__list">
+        <li><span class="ai-evidence__era">CBIT</span> 600+ executives trained in AI in 2026, 500+ of them in Thailand.</li>
+        <li><span class="ai-evidence__era">CBIT</span> The NTU microcredential, “Leading AI-Driven Business Transformation”: 10 credits at level 7, stackable to the PG Certificate in Leadership and Management Practice.</li>
+        <li><span class="ai-evidence__era">CBIT</span> CBIT co-hosts the annual Innovate UK AI for SME Conference. Its home, ai4smes.co.uk, is hosted by CBIT and supported by Innovate UK.</li>
+      </ul>
+
+      <h3>AI in CBIT’s research and platforms</h3>
+      <ul class="ticks ai-evidence__list">
+        <li><span class="ai-evidence__era">CBIT</span> UKRI’s own record titles CBIT’s Round 1 Cross-Research Council Responsive Mode award “BeefTwin: AI powered Digital Twin for Sustainable Beef Farming”.</li>
+        <li><span class="ai-evidence__era">CBIT</span> SurplusMap, an AI-enabled digital twin for London’s surplus food system, is a feasibility study funded by DICE Network+.</li>
+        <li><span class="ai-evidence__era">CBIT</span> TNDRX: AI profiles a company’s capabilities, matches them to live tender opportunities, and brokers consortiums, so smaller firms can bid together for contracts none could win alone.</li>
+        <li><span class="ai-evidence__era">Before CBIT</span> Hub of All Things was cited by the House of Lords Select Committee on AI (2018) and licensed to Dataswyft: 40+ jobs created, the company valued at £25m in 2020.</li>
+      </ul>
+
+      <h3>Professor Xiao Ma’s voice on AI</h3>
+      <figure class="quote-panel">
+        <img class="quote-panel__photo" src="assets/img/people/xiao-ma.jpg" width="700" height="465" alt="" loading="lazy">
+        <blockquote class="quote-panel__quote"><p>“Yesterday, AI assisted; today, AI is prioritised; tomorrow, workers in every industry will be AI natives.”</p></blockquote>
+        <figcaption class="quote-panel__cite">Professor Xiao Ma, Director, CBIT<span class="quote-panel__source"><cite>Ambition</cite>, AMBA &amp; BGA, Issue 3, 2026, p.&nbsp;32</span></figcaption>
+      </figure>
+      <ul class="ticks ai-evidence__list">
+        <li><span class="ai-evidence__era">CBIT</span> Named AI keynotes and masterclasses: MHESI’s AI platform launch, Bangkok (16 December 2025); the closing keynote of Transforming SMEs with AI (20 November 2025); an AI-empowered Business Transformation masterclass for the J-StarX UK Programme for Japanese Researchers, Saïd Business School, University of Oxford (20 February 2026); “Business Process re-Design and Innovation in a Sprint with AI”, Oxford Venture Builder Workshop (7 May 2025). <a href="2026.09.30.site.keynotes.html">More keynotes and masterclasses</a>.</li>
+      </ul>
+    </div>
+    <p class="source-line">Source: CBIT figures registry v1.1 (21 September 2026). <a href="2026.09.30.site.sources.html">Figures and sources<span aria-hidden="true"> →</span></a></p>
+  </div>
+</section>
+
+<section class="section section--tint" aria-labelledby="h-services">
+  <div class="wrap">
+    <h2 id="h-services">Every service, AI-empowered</h2>
+    <p class="section__intro">Each service’s own page sets out what AI adds and the AI-native outcome for the buyer.</p>
+    <ul class="list-cards list-cards--2">
+      <li><a class="list-card" href="2026.09.30.site.service.venture.builder.html#ai-adds"><h3 class="list-card__title">CBIT Venture Builder</h3><p class="list-card__text">One-to-one support to build and grow an AI-native venture, free to founders and SMEs.</p></a></li>
+      <li><a class="list-card" href="2026.09.30.site.service.steam.founder.html#ai-adds"><h3 class="list-card__title">STEAM Founder</h3><p class="list-card__text">Turn research into an AI-native venture, with AI in every phase, from the first market scan to the data room.</p></a></li>
+      <li><a class="list-card" href="2026.09.30.site.service.global.vb.html#ai-adds"><h3 class="list-card__title">Global VB Partnership</h3><p class="list-card__text">Land your ventures in the UK, bring a founder cohort to test the UK market, or go global from the UK, with AI doing the groundwork.</p></a></li>
+      <li><a class="list-card" href="2026.09.30.site.service.executive.programmes.html#ai-adds"><h3 class="list-card__title">AI-Powered Business Transformation</h3><p class="list-card__text">Make your leaders, or a national workforce, AI-native, in a programme custom-made for them.</p></a></li>
+      <li><a class="list-card" href="2026.09.30.site.service.steam.xcelerate.html#ai-adds"><h3 class="list-card__title">STEAM Xcelerate</h3><p class="list-card__text">Win interdisciplinary research and turn it into impact, with AI agents tracking and analysing the impact.</p></a></li>
+      <li><a class="list-card" href="2026.09.30.site.service.venture.partner.html#ai-adds"><h3 class="list-card__title">Venture partner for bids</h3><p class="list-card__text">Put an AI-empowered venture engine into your bid, from researcher cohorts to tested prototypes.</p></a></li>
+      <li><a class="list-card" href="2026.09.30.site.service.funded.projects.html#ai-adds"><h3 class="list-card__title">Funded AI projects for businesses</h3><p class="list-card__text">Put AI into your operations with public co-funding, with CBIT as your research partner.</p></a></li>
+      <li><a class="list-card" href="2026.09.30.site.service.ecosystem.building.html#ai-adds"><h3 class="list-card__title">Innovation ecosystem building</h3><p class="list-card__text">Build an AI-enabled innovation ecosystem: your own staff learn to coach research ventures.</p></a></li>
+      <li><a class="list-card" href="2026.09.30.site.service.sister.centres.html#ai-adds"><h3 class="list-card__title">Sister centres and long-term partnerships</h3><p class="list-card__text">A long-term home for joint work on AI, entrepreneurship and venture building.</p></a></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section section--tyrian" aria-labelledby="h-way-in">
+  <div class="wrap cta-band">
+    <div class="cta-band__text">
+      <h2 id="h-way-in">Find your way in</h2>
+      <p>Four doors, one for each kind of partner. Each leads to its services and a first step.</p>
+    </div>
+    <div class="btn-row">
+      <a class="btn btn--secondary" href="2026.09.30.site.founders.html">Founders and SMEs</a>
+      <a class="btn btn--secondary" href="2026.09.30.site.business.leaders.html">Business leaders and companies</a>
+      <a class="btn btn--secondary" href="2026.09.30.site.research.leaders.html">Research and university leaders</a>
+      <a class="btn btn--secondary" href="2026.09.30.site.government.leaders.html">Government leaders and international partners</a>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="site-footer__recog">
+    <div class="wrap">
+      <div class="site-footer__logos">
+        <img class="site-footer__logo site-footer__logo--cbit" src="assets/img/logos/cbit-blend.png" width="1667" height="393" alt="CBIT – Centre for Business and Industry Transformation" loading="lazy">
+        <img class="site-footer__logo site-footer__logo--nbs" src="assets/img/logos/nbs-blend.png" width="2430" height="756" alt="Nottingham Business School, Nottingham Trent University" loading="lazy">
+      </div>
+      <p class="site-footer__award">CBIT Venture Builder: Technology Innovation Champion, 2024</p>
+      <p class="site-footer__part">CBIT Venture Builder is part of CBIT (Centre for Business and Industry Transformation), Nottingham Business School, Nottingham Trent University</p>
+    </div>
+  </div>
+  <div class="site-footer__main">
+    <div class="wrap site-footer__cols">
+      <div class="site-footer__col">
+        <h2 class="site-footer__heading">Contact CBIT</h2>
+        <ul class="site-footer__list">
+          <li><a href="mailto:cbit@ntu.ac.uk">cbit@ntu.ac.uk</a></li>
+          <li><span data-review="K2 — confirm the CBIT address (Newton Building, Nottingham)">Newton Building, Nottingham</span></li>
+          <li>We also host in London</li>
+        </ul>
+      </div>
+      <div class="site-footer__col">
+        <h2 class="site-footer__heading">Help me choose</h2>
+        <ul class="site-footer__list">
+          <li><a href="2026.09.30.site.path.venture.start.html">Founders and SMEs</a></li>
+          <li><a href="2026.09.30.site.path.leaders.start.html">Business leaders and companies</a></li>
+          <li><a href="2026.09.30.site.path.research.start.html">Research and university leaders</a></li>
+          <li><a href="2026.09.30.site.path.partner.start.html">Government leaders and international partners</a></li>
+        </ul>
+      </div>
+      <div class="site-footer__col">
+        <h2 class="site-footer__heading">Explore</h2>
+        <ul class="site-footer__list">
+          <li><a href="2026.09.30.site.founders.html">Founders and SMEs</a></li>
+          <li><a href="2026.09.30.site.business.leaders.html">Business leaders and companies</a></li>
+          <li><a href="2026.09.30.site.research.leaders.html">Research and university leaders</a></li>
+          <li><a href="2026.09.30.site.government.leaders.html">Government leaders and international partners</a></li>
+          <li><a href="2026.09.30.site.services.html">Services</a></li>
+          <li><a href="2026.09.30.site.impact.ventures.html">Impact</a></li>
+          <li><a href="2026.09.30.site.news.events.html">News and events</a></li>
+          <li><a href="2026.09.30.site.about.how.we.work.html">About</a></li>
+          <li><a href="2026.09.30.site.contact.html">Contact</a></li>
+          <li><a href="2026.09.30.site.sources.html">Figures and sources</a></li>
+        </ul>
+      </div>
+      <div class="site-footer__col">
+        <h2 class="site-footer__heading">Follow CBIT</h2>
+        <ul class="site-footer__list">
+          <li><a href="https://www.linkedin.com/company/cbitvb/">LinkedIn</a></li>
+          <li><a href="https://www.instagram.com/cbit_ntu">Instagram</a></li>
+          <li><a href="https://www.youtube.com/channel/UC6PWMB0qrocA130sS-fPYXQ">YouTube</a></li>
+          <li><a href="https://x.com/CbitNtu">X (Twitter)</a></li>
+          <li><a href="https://medium.com/entrepreneurship-and-business-transformation">Medium</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="site-footer__legal">
+        <ul class="site-footer__legal-list">
+          <li><a href="https://www.ntu.ac.uk/policies/web-policies">About our website</a></li>
+          <li><a href="2026.09.30.site.accessibility.html">Accessibility</a></li>
+          <li><a href="https://www.ntu.ac.uk/about-us/governance/freedom-of-information">Freedom of information</a></li>
+          <li><a href="https://www.ntu.ac.uk/about-us/governance/information-governance">GDPR</a></li>
+          <li><a href="2026.09.30.site.privacy.html">Cookies and privacy</a></li>
+        </ul>
+        <p class="site-footer__copy">© Nottingham Trent University</p>
+      </div>
+    </div>
+  </div>
+</footer>
+<div class="review-bar" role="region" aria-label="Review tools">
+  <button class="review-bar__toggle" type="button" data-review-bar aria-expanded="false" aria-controls="review-bar-panel">
+    <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" focusable="false"><path d="M4 4h14v10H9l-4 4v-4H4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M7.5 8h7M7.5 11h4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    <span class="review-bar__toggle-text">Review</span>
+  </button>
+  <div class="review-bar__panel" id="review-bar-panel">
+    <button class="review-bar__btn" type="button" data-review-notes aria-pressed="false">Review notes <span class="review-bar__state" aria-hidden="true">Off</span></button>
+    <button class="review-bar__btn" type="button" data-review-list aria-expanded="false" aria-controls="review-drawer">Notes list (<span data-review-count>0</span>)</button>
+    
+  </div>
+</div>
+<aside class="review-drawer" id="review-drawer" aria-labelledby="review-drawer-title" hidden>
+  <div class="review-drawer__head">
+    <h2 class="review-drawer__title" id="review-drawer-title" tabindex="-1">Review notes on this page</h2>
+    <button class="review-drawer__close" type="button" data-review-close>Close</button>
+  </div>
+  <ol class="review-drawer__list"></ol>
+</aside>
+</body>
+</html>

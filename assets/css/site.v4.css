@@ -1,0 +1,2125 @@
+/* ==========================================================================
+   v4 (XM-Desktop, 30 Sep 2026, ceo-xm T-099): a copy of site.v3.css for the 30 Sep version (pages 2026.09.30.site.*),
+   cut under the handover rule as IT-017 cut v3 from v2; site.v3.css stays untouched. What v4 changes: the six
+   bar-breakpoint media queries are back at 1280/1279 (D10), F12's two-line bar labels are retired, and the new bar's
+   panels (Work with us, Services, the compact Impact and About dropdowns) are the block
+   "=== T-099 the new navigation bar (v4) ===" at the end of the file.
+   CBIT Venture Builder: review mockups, design round 2 (service map v2), on theme v3 (brief section 9).
+   site.v4.css: a copy of round 1's site.css (left untouched under the handover rule) plus section 20,
+   which holds everything round 2 adds (the audience-led bar and its menus, the outlined Apply, the
+   people-first doors, the audience and service templates, story slots, Work with CBIT, hub v2, stubs).
+
+    1 Tokens                     10 Stat tiles and figures
+    2 Base                       11 One cycle, three capabilities (S18)
+    3 NTU affiliation strip      12 National scale, quote, ventures, logo walls, news
+    4 Sticky CBIT VB bar         13 Path engine
+    5 Breadcrumb                 14 Page patterns (split, tiles, terms, usp, facts, filter,
+    6 Hero                          list cards, status, disclosure, journey, layers, countries)
+    7 Sections and plum bands    15 Footer
+    8 Buttons and links          16 Tablet and phone
+    9 Cards and doors            17 Review tools   18 Review hub   19 Print
+                                 20 Round 2 (service map v2)
+
+   Only the NTU strip (section 3) keeps NTU's measurements, its Univers/Arial stack and NTU pink.
+   Everything below it is CBIT house style: DM Sans, self-hosted for every visitor (owner decision D3,
+   23 Sep 2026; Canva Sans stays in decks), regular and bold only, brand colours only, no near-black
+   backgrounds (plum bands instead). Magenta only for the H1, key figures and one primary button per
+   view; the gradient only on the bar's bottom rule, the hero rule and the quote panel (owner decision D4).
+   Breakpoints: 1280px (full bar / Menu button, D10), 1024px (two-column hero and outcome layout,
+   full NTU strip), 768px (phones), 600px (single column).
+   ========================================================================== */
+
+/* 1 Tokens ---------------------------------------------------------------- */
+/* DM Sans (SIL Open Font Licence 1.1, assets/fonts/OFL.txt): Latin subset, variable weight 400-700,
+   preloaded in partials/head.html. */
+@font-face {
+  font-family: "DM Sans";
+  src: url("../fonts/dm-sans-latin.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+:root {
+  --font: "DM Sans", "Canva Sans", Arial, Helvetica, sans-serif;
+  --ntu-font: "Univers LT Pro", "UniversLTPro-55Roman", Arial, sans-serif;
+  --ntu-pink: #E6005B;                /* NTU strip only */
+  --magenta: #C7017F;                 /* H1, key figures, one primary button per view (D4) */
+  --plum: #821E69;                    /* H2s, sub-heads, card titles, £ figures, bands, rules, focus */
+  --pewter: #585858;                  /* muted text; answer-row borders; visited links (7.1:1 white, 6.4:1 tint) */
+  --ink: #1A1A1A;                     /* body text */
+  --tint: #F5F2F8;                    /* alternate sections, panels */
+  --card-line: #ECDFE9;               /* card borders, rules */
+  --line: #D9C9D6;                    /* decorative rules (layers, tags) */
+  --gradient: linear-gradient(90deg, #821E69, #C7017F);   /* bar rule, hero rule, quote panel only */
+  --accent: var(--magenta);           /* key figures (stat, card and terms figures) */
+  --arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 12h15M13 6l6 6-6 6' fill='none' stroke='%23821E69' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");   /* doors, linked cards, answer rows */
+  --focus: var(--plum);               /* focus ring; white on plum and gradient */
+  --review: #1D70B8;                  /* review tools only (not a brand colour) */
+  --radius: 8px;
+  --wrap: 1366px;
+  --gutter: 20px;
+  --bar-h: 75px;                      /* sticky bar height incl. its 3px rule */
+}
+
+/* 2 Base ------------------------------------------------------------------ */
+*, *::before, *::after { box-sizing: border-box; }
+html {
+  scroll-padding-top: calc(var(--bar-h) + 16px);   /* anchors land below the sticky bar */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  background: #fff;
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 17px;
+  line-height: 27px;
+}
+[hidden] { display: none !important; }
+img { max-width: 100%; height: auto; }
+svg { max-width: 100%; }
+h1, h2, h3, h4 { margin: 0 0 16px; font-family: var(--font); font-weight: 700; overflow-wrap: break-word; text-wrap: balance; }
+h1 { font-size: 48px; line-height: 56px; color: var(--magenta); margin-bottom: 24px; }
+h2 { font-size: 32px; line-height: 40px; color: var(--plum); margin-bottom: 24px; }   /* plum H2s (D4) */
+h3 { font-size: 22px; line-height: 28px; color: var(--plum); }
+p { margin: 0 0 20px; }
+ul, ol { margin: 0 0 20px; padding-left: 24px; }
+li { margin-bottom: 6px; }
+strong, b { font-weight: 700; }
+a { color: var(--plum); text-decoration: underline; text-underline-offset: 3px; }
+a:hover { text-decoration-thickness: 2px; }
+/* Visited body links (plain, unclassed links in the page content): pewter, 7.1:1 on white, 6.4:1 on tint.
+   Chrome (bar, footer, breadcrumb, path bar) and components with a class keep their colours. */
+.main a:not([class]):visited { color: var(--pewter); }
+.main .section--tyrian a:not([class]):visited, .main .event a:not([class]):visited { color: #fff; }
+code { font-family: Consolas, "Courier New", monospace; font-size: 0.92em; background: var(--tint); padding: 1px 5px; border-radius: 4px; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.main:focus { outline: none; }
+.visually-hidden {
+  position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+.skip-link {
+  position: absolute; left: 8px; top: -120px; z-index: 1000;
+  padding: 12px 18px; border-radius: 6px; background: var(--plum); color: #fff; font-weight: 700;
+}
+.skip-link:focus { top: 8px; outline: 3px solid #fff; outline-offset: -6px; }
+.wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); }
+.wrap--narrow { max-width: 1070px; }
+.lead { font-size: 20px; line-height: 30px; }
+.eyebrow {
+  margin: 0 0 12px; color: var(--plum);
+  font-size: 14px; line-height: 20px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+}
+.prose { max-width: 1030px; }
+.plain-list { padding-left: 22px; }
+
+/* 3 NTU affiliation strip (brief sections 8 and 9; measured on ntu.ac.uk, 23 Sep 2026) ------ */
+.ntu-bar {
+  --focus: #333333;
+  position: relative; z-index: 60;
+  background: #fff; color: #333333;
+  font-family: var(--ntu-font); font-size: 16px; line-height: 24px;
+}
+.ntu-bar__inner {
+  display: grid; grid-template-columns: 220px minmax(0, 1fr); grid-template-areas: "logo tools";
+  height: 149px; padding-top: 40px;
+}
+.ntu-bar__logo { grid-area: logo; display: block; width: 220px; height: 96px; }
+.ntu-bar__logo img { display: block; width: 220px; height: 96px; }
+.ntu-bar__search { display: none; }                /* the search disclosure (<details>): below 1024px only, section 16 */
+.ntu-bar__tools { grid-area: tools; justify-self: end; width: 364px; }
+.ntu-utility { list-style: none; margin: 0; padding: 0; height: 21px; text-align: right; font-size: 14px; line-height: 21px; }
+.ntu-utility li { display: inline-block; margin: 0; padding-right: 14px; }
+.ntu-utility li::after { content: "|"; color: #CCCCCC; padding-left: 14px; }
+.ntu-utility li:last-child { padding-right: 0; }
+.ntu-utility li:last-child::after { content: none; }
+.ntu-utility a { color: #151515; text-decoration: underline; text-underline-offset: 2px; }
+.ntu-search { margin: 8px 0 0; }
+.ntu-search__row { display: flex; }
+.ntu-search__input {
+  width: 320px; height: 44px; margin: 0; padding: 6px 9px;
+  border: 0.8px solid var(--ntu-pink); border-radius: 0; background: #fff; color: #333333;
+  font-family: var(--ntu-font); font-size: 15px; line-height: 22.5px;
+  -webkit-appearance: none; appearance: none;
+}
+.ntu-search__input::placeholder { color: #767676; opacity: 1; }
+.ntu-search__submit {
+  flex: none; display: flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; margin: 0; padding: 0; border: 0; border-radius: 0;
+  background: var(--ntu-pink); color: #fff; cursor: pointer;
+}
+.ntu-search__submit:hover { background: #C4004D; }
+.ntu-search__cats {
+  display: flex; flex-wrap: wrap; gap: 0 16px; min-width: 0;
+  margin: 0; padding: 7px 0 0; border: 0; font-size: 14px; line-height: 21px;
+}
+.ntu-search__cats label { display: inline-flex; align-items: center; gap: 5px; cursor: pointer; }
+.ntu-search__cats input { margin: 0; accent-color: #333333; }
+
+/* 4 Sticky CBIT Venture Builder bar ------------------------------------------ */
+.vb-bar {
+  --focus: #fff;
+  position: sticky; top: 0; z-index: 50;
+  background: var(--plum); color: #fff;
+  border-style: solid; border-width: 0 0 3px; border-image: var(--gradient) 1;
+  transition: box-shadow .2s ease;
+}
+.vb-bar.is-scrolled { box-shadow: 0 6px 18px rgba(26, 26, 26, .22); }
+.vb-bar__inner { display: flex; align-items: stretch; min-height: 72px; }
+.vb-bar__logo { flex: none; display: flex; align-items: center; margin-right: 20px; padding: 6px 0; }
+.vb-bar__logo img { display: block; width: auto; height: 44px; }
+.vb-bar__toggle { display: none; }                  /* the Menu disclosure (<details>): below 1280px only, section 16 */
+.vb-bar__nav { display: flex; flex: 1 1 auto; min-width: 0; }
+.vb-bar__list { list-style: none; margin: 0; padding: 0; display: flex; align-items: stretch; }
+.vb-bar__item { display: flex; flex: 0 1 auto; margin: 0; }
+.vb-bar__link {
+  display: flex; align-items: center; padding: 0 13px;
+  color: #fff; text-decoration: none; font-size: 16px; line-height: 20px; white-space: nowrap;
+}
+.vb-bar__link:hover { text-decoration: underline; text-underline-offset: 4px; }
+.vb-bar__link[aria-current] { box-shadow: inset 0 -4px 0 #fff; }
+.vb-bar__apply {
+  flex: none; align-self: center; display: inline-flex; align-items: center;
+  min-height: 44px; margin-left: 16px; padding: 10px 22px; border-radius: 6px;
+  background: var(--magenta); color: #fff; font-size: 16px; line-height: 20px; font-weight: 700; text-decoration: none;
+}
+.vb-bar__apply:hover, .vb-bar__apply[aria-current] { box-shadow: inset 0 0 0 2px #fff; }
+.vb-bar__apply:hover { text-decoration: underline; }
+.vb-bar__link:focus-visible { outline-offset: -5px; }
+
+/* 5 Breadcrumb ("CBIT Venture Builder / Section / Page"; none on Home or path pages) --------------
+   The "/" is drawn after each crumb but the last, so a wrapped line never starts with it, and its
+   alternative text is empty, so assistive technology does not read it out. */
+.breadcrumb { padding: 16px 0 0; font-size: 14px; line-height: 20px; }
+.breadcrumb__list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; }
+.breadcrumb__list li { margin: 0; color: var(--pewter); }
+.breadcrumb__list li:not(:last-child)::after { content: "/"; content: "/" / ""; margin: 0 8px; }
+.breadcrumb__list a { color: var(--pewter); }
+.breadcrumb__list [aria-current] { color: var(--ink); }
+
+/* 6 Hero: white, text left and photo right from 1024px; below 1024px text, then photo -- */
+.hero { padding: 40px 0 56px; background: #fff; border-bottom: 1px solid var(--card-line); }
+.hero__inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: center; }
+.hero__body > :last-child { margin-bottom: 0; }
+.hero h1 { margin-bottom: 24px; }
+.hero h1::after { content: ""; display: block; width: 96px; height: 6px; margin-top: 20px; background: var(--gradient); }
+.hero__strap { color: var(--plum); font-size: 18px; line-height: 28px; }
+.hero__affil { color: var(--pewter); font-size: 14px; line-height: 20px; }
+.hero__meta { margin: 0 0 8px; font-size: 16px; line-height: 24px; }
+.hero__meta strong { color: var(--plum); }
+.hero__actions { margin-top: 28px; }
+.hero__media img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius); }
+.hero--text .hero__inner { grid-template-columns: minmax(0, 1fr); }
+.hero--text .hero__body { max-width: 1030px; }
+.hero .crcrm { margin: 0; }
+/* Home (owner decision D1): no eyebrow and no hero buttons. The four path doors (div.hero__paths,
+   id find-your-path) are the action area under the lead, strapline and affiliation line, beside a 16:9
+   photo (a CSS crop with object-fit: the file itself is not re-cropped). Spacing is tight so the four
+   doors clear the first screen at 1440 x 900 and 1024 x 768. */
+.hero--home { padding: 32px 0 40px; }
+.hero--home .hero__inner { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 48px; }
+.hero--home h1 { margin-bottom: 16px; }
+.hero--home h1::after { margin-top: 16px; }
+.hero--home .lead { margin-bottom: 10px; }
+.hero--home .hero__strap { margin-bottom: 10px; }
+.hero--home .hero__affil { margin-bottom: 20px; }
+.hero--home .hero__media img { aspect-ratio: 16 / 9; }
+
+/* 7 Sections and plum bands ------------------------------------------------ */
+.section { padding: 64px 0; background: #fff; }
+.section--tint { background: var(--tint); }
+.section--tyrian { --focus: #fff; background: var(--plum); color: #fff; }
+.section--tyrian h2, .section--tyrian h3, .section--tyrian a { color: #fff; }
+.section--tyrian .btn--primary { background: #fff; border-color: #fff; color: var(--plum); }
+.section--tyrian .btn--primary:hover { background: var(--tint); border-color: var(--tint); color: var(--plum); }
+.section--tyrian .btn--secondary { background: transparent; border-color: #fff; color: #fff; }
+.section--tyrian .btn--secondary:hover { background: #fff; border-color: #fff; color: var(--plum); }
+.section__intro { max-width: 820px; font-size: 18px; line-height: 28px; }
+.section__foot { margin: 24px 0 0; }
+.subhead { margin: 48px 0 24px; }
+.source-line { margin: 16px 0 0; color: var(--pewter); font-size: 14px; line-height: 20px; }
+.crcrm { max-width: 1030px; margin: 28px 0 0; color: var(--ink); font-size: 18px; line-height: 28px; font-weight: 700; }
+.statement { margin: 0 0 32px; color: var(--plum); font-size: 28px; line-height: 38px; font-weight: 700; }
+.tag {
+  display: inline-block; padding: 1px 8px; border: 1px solid var(--line); border-radius: 4px;
+  background: #fff; color: var(--pewter); font-size: 13px; line-height: 18px;
+}
+.cta-band { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; }
+.cta-band h2 { margin: 0 0 8px; }
+.cta-band p { margin: 0; font-size: 18px; line-height: 28px; }
+
+/* 8 Buttons and links ------------------------------------------------------ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 48px; padding: 12px 24px; border: 2px solid transparent; border-radius: 6px;
+  font-family: var(--font); font-size: 16px; line-height: 20px; font-weight: 700;
+  text-align: center; text-decoration: none; cursor: pointer;
+}
+.btn--primary { background: var(--magenta); border-color: var(--magenta); color: #fff; }
+.btn--primary:hover { background: var(--plum); border-color: var(--plum); text-decoration: underline; }
+.btn--secondary { background: transparent; border-color: var(--plum); color: var(--plum); }
+.btn--secondary:hover { background: var(--plum); color: #fff; }
+.btn--large { min-height: 56px; padding: 14px 28px; font-size: 18px; line-height: 24px; }
+.btn-row { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn-row--stack { flex-direction: column; align-items: stretch; }
+.btn-link {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0; border: 0; background: none;
+  color: var(--plum); font: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer;
+}
+.btn-link:hover { text-decoration-thickness: 2px; }
+.more-link { font-weight: 700; }
+.more-link::after { content: "\2192"; display: inline-block; margin-left: 6px; text-decoration: none; }   /* no underline under the arrow */
+
+/* 9 Cards and doors (white, plain 1px #ECDFE9 border, radius 8px; no gradient top: D4) ----------
+   Linked cards and doors (a.card, a.list-card, a.door) carry the arrow and lift on hover; static tiles
+   (.stat, .terms__item) keep the plain border only (design review P2.4). */
+.cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+.cards--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.cards--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.cards > li { margin: 0; }
+.card, .door, .stat, .list-card, .terms__item {
+  position: relative; overflow: hidden;
+  background: #fff; border: 1px solid var(--card-line); border-radius: var(--radius);
+}
+.card { display: flex; flex-direction: column; height: 100%; color: var(--ink); text-decoration: none; transition: transform .15s ease, box-shadow .15s ease; }
+a.card:hover, a.card:focus-visible, .door:hover, .door:focus-visible, a.list-card:hover, a.list-card:focus-visible {
+  transform: translateY(-3px); box-shadow: 0 12px 28px rgba(130, 30, 105, .14);
+}
+/* The door arrow on every linked card (bottom right, after the text) */
+a.card .card__body::after, a.list-card::after {
+  content: ""; flex: none; align-self: flex-end; width: 24px; height: 24px; margin-top: 12px;
+  background: var(--arrow) center / contain no-repeat; transition: transform .15s ease;
+}
+a.card:hover .card__body::after, a.card:focus-visible .card__body::after,
+a.list-card:hover::after, a.list-card:focus-visible::after { transform: translateX(4px); }
+.card__media { aspect-ratio: 3 / 2; overflow: hidden; background: var(--tint); }
+.card__media img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .25s ease; }
+a.card:hover .card__media img { transform: scale(1.04); }
+/* Typographic card: figures top-aligned, so they line up across a row whatever the label length (P2.7) */
+.card__type { aspect-ratio: 3 / 2; display: flex; flex-direction: column; justify-content: flex-start; padding: 24px 20px 20px; background: var(--tint); }
+.card__figure { margin: 0 0 8px; color: var(--magenta); font-size: 48px; line-height: 1; font-weight: 700; }
+.card__figure-label { margin: 0; color: var(--pewter); font-size: 14px; line-height: 20px; }
+.card__body { display: flex; flex-direction: column; flex: 1 1 auto; padding: 20px; }
+.card__eyebrow { margin: 0 0 8px; color: var(--pewter); font-size: 14px; line-height: 20px; }
+.card__title { margin: 0 0 10px; color: var(--plum); font-size: 20px; line-height: 26px; }
+a.card:hover .card__title { text-decoration: underline; }
+.card__text { margin: 0 0 12px; }
+.card__meta { margin: auto 0 0; padding-top: 8px; color: var(--pewter); font-size: 14px; line-height: 20px; }
+.card--news .card__eyebrow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+
+/* Path doors: the Home hero's action area (owner decision D1). Compact: label (plum, bold), audience hint
+   (pewter) and the arrow; 2 x 2 from 600px, full-width rows on phones. The one-line description shows only
+   where the four doors still clear the first screen (wide and tall windows, see the media query). */
+.doors { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.doors__item { margin: 0; }
+.door {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 100%; padding: 12px 16px;
+  color: var(--ink); text-decoration: none; transition: transform .15s ease, box-shadow .15s ease;
+}
+.door__text { min-width: 0; }
+.door__label { margin: 0; color: var(--plum); font-size: 18px; line-height: 24px; }
+.door:hover .door__label { text-decoration: underline; }
+.door__hint { margin: 2px 0 0; color: var(--pewter); font-size: 14px; line-height: 20px; }
+.door__desc { display: none; margin: 6px 0 0; font-size: 15px; line-height: 22px; }
+.door::after {
+  content: ""; flex: none; width: 24px; height: 24px;
+  background: var(--arrow) center / contain no-repeat; transition: transform .15s ease;
+}
+.door:hover::after, .door:focus-visible::after { transform: translateX(4px); }
+@media (min-width: 1280px) and (min-height: 860px) {
+  .door__desc { display: block; }
+}
+
+/* 10 Stat tiles and figures (magenta; £ figures plum, tagged "is-money" by the build) ------ */
+.stats { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.stats--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.stats--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.stat { margin: 0; padding: 26px 24px 22px; }
+.stat__figure { margin: 0 0 8px; color: var(--accent); font-size: 46px; line-height: 50px; font-weight: 700; }
+.stat__label { margin: 0 0 8px; color: var(--ink); }
+.stat__period { margin: 0; color: var(--pewter); font-size: 14px; line-height: 20px; }
+.stat__kicker { margin: 0 0 8px; color: var(--pewter); font-size: 14px; line-height: 20px; }
+.stat--wide { grid-column: span 2; }
+/* Award variant: the registry order stays ("CBIT Venture Builder — Technology Innovation Champion, 2024"):
+   the label line comes first, the award name is the figure line. */
+.stat--award .stat__label { margin: 0 0 6px; color: var(--plum); font-size: 16px; line-height: 22px; font-weight: 700; }
+.stat--award .stat__figure { margin-bottom: 10px; color: var(--plum); font-size: 20px; line-height: 26px; }   /* plum at card-title size (fix round 2, P3.2) */
+.stat__figure.is-money, .card__figure.is-money { color: var(--plum); }   /* not the terms band: "£0" stays magenta like "0%" (P2.15) */
+
+/* 11 One cycle, three capabilities (the S18 wheel, recoloured to the brand palette by owner decision D7,
+   in a white panel as in the S18 file) -------------------------------------------------------------- */
+.cap-layout { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 48px; align-items: center; }
+.s18 { margin: 0; overflow: hidden; background: #fff; border: 1px solid var(--card-line); border-radius: var(--radius); }
+/* From 2026.09.12.cbit.s18.capabilities.html (svg sizing and the three animations), scoped to .s18.
+   The figure clips the empty margin of the SVG's 860 x 620 viewBox; the SVG element itself is unchanged. */
+.s18 svg { width: 100%; height: auto; display: block; overflow: visible; }
+.s18 svg { width: 136%; max-width: none; margin: -6% -18% -4%; }
+.s18 .corepulse { transform-box: fill-box; transform-origin: center; animation: s18-cp 3.4s ease-in-out infinite; }
+@keyframes s18-cp { 0%, 100% { opacity: .4; } 50% { opacity: .8; } }
+.s18 .feed { stroke-dasharray: 4 8; animation: s18-flow 4s linear infinite; }
+@keyframes s18-flow { to { stroke-dashoffset: -96; } }
+.s18 .loop { stroke-dasharray: 13 9; animation: s18-loopflow 5s linear infinite; }
+@keyframes s18-loopflow { to { stroke-dashoffset: 88; } }
+.s18.is-paused .corepulse, .s18.is-paused .feed, .s18.is-paused .loop { animation-play-state: paused; }
+.s18 text { font-family: var(--font); }
+/* The gap labels (Research, Education, Knowledge Exchange) would fall to about 7px on phones; the
+   capability blocks beside the wheel name the same missions, so they are hidden below 600px (P2.13). */
+@media (max-width: 599px) {
+  .s18 .s18__gap-label { display: none; }
+}
+/* Pause control: reads "Pause animation" while it runs and "Play animation" while paused (site.js);
+   paused, it shows as pressed (filled plum). */
+.s18__controls { margin: 12px 0 0; text-align: center; }
+.s18__toggle {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; margin: 0; padding: 0 18px;
+  border: 2px solid var(--plum); border-radius: 22px; background: #fff; color: var(--plum); cursor: pointer;
+  font-family: var(--font); font-size: 16px; line-height: 20px; font-weight: 700;
+}
+.s18__toggle::before {                                    /* pause bars; a play triangle when paused */
+  content: ""; flex: none; width: 10px; height: 12px;
+  border-left: 3px solid currentColor; border-right: 3px solid currentColor; box-sizing: border-box;
+}
+.s18__toggle:hover { text-decoration: underline; }
+.s18__toggle.is-paused { background: var(--plum); color: #fff; box-shadow: inset 0 2px 4px rgba(26, 26, 26, .35); }
+.s18__toggle.is-paused::before {
+  width: 0; height: 0; border-style: solid; border-width: 6px 0 6px 10px; border-color: transparent transparent transparent currentColor;
+}
+.no-js .s18__controls { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .no-js .s18 .corepulse, .no-js .s18 .feed, .no-js .s18 .loop { animation: none; }
+}
+/* Capability blocks: no coloured left border (only the "This is for you if..." inset keeps one, D4) */
+.caps { display: flex; flex-direction: column; gap: 22px; }
+.cap { padding: 0; }
+.cap__name { margin: 0 0 2px; font-size: 22px; line-height: 28px; }
+.cap__name a { color: var(--plum); text-decoration: none; }
+.cap__name a:hover { text-decoration: underline; }
+.cap__from { margin: 0 0 6px; color: var(--pewter); font-size: 14px; line-height: 20px; }
+.cap__gloss { margin: 0; }
+.caps__close { margin: 4px 0 0; padding-top: 16px; border-top: 1px solid var(--line); }
+
+/* 12 National scale, quote, ventures, logo walls, news -------------------- */
+.national { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 48px; align-items: start; margin-bottom: 40px; }
+.national__photo img, .split__photo img { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius); }
+.timeline { list-style: none; margin: 0 0 16px; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.timeline__step { position: relative; margin: 0; padding: 22px 16px 0 0; border-top: 4px solid var(--plum); }
+.timeline__step::before {                    /* plum dots: magenta is kept for the H1, figures and the primary button (D4) */
+  content: ""; position: absolute; top: -12px; left: 0; width: 20px; height: 20px; border-radius: 50%;
+  background: var(--plum); border: 4px solid #fff;
+}
+.section--tint .timeline__step::before { border-color: var(--tint); }
+.timeline__year { display: block; color: var(--plum); font-size: 24px; line-height: 30px; font-weight: 700; }
+.timeline__name { display: block; }
+.timeline__note { margin: 0; }
+
+.quote-panel {
+  --focus: #fff;
+  display: grid; grid-template-columns: 220px minmax(0, 1fr); grid-template-areas: "photo quote" "photo cite";
+  column-gap: 40px; align-items: center; margin: 0; padding: 48px; background: var(--gradient); color: #FEFEFE;
+}
+.quote-panel__photo { grid-area: photo; display: block; width: 220px; height: 220px; object-fit: cover; object-position: 53% 38%; }
+.quote-panel__quote { grid-area: quote; align-self: end; margin: 0 0 16px; }
+.quote-panel__quote p { margin: 0; font-size: 28px; line-height: 38px; font-weight: 700; }
+.quote-panel__quote p::before { content: "\201C"; }
+.quote-panel__quote p::after { content: "\201D"; }
+.quote-panel__cite { grid-area: cite; align-self: start; font-size: 16px; line-height: 24px; }
+.quote-panel__source { display: block; font-size: 14px; line-height: 21px; }
+.quote-panel__source cite { font-style: italic; }
+
+.ventures { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; }
+.ventures__aside { display: flex; flex-wrap: wrap; align-items: center; gap: 20px 32px; }
+.ventures__aside .stat { flex: 0 1 420px; }
+.ventures__aside .btn-row { flex: 0 1 auto; }
+
+.logo-wall { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; }
+.logo-wall__item {
+  margin: 0; aspect-ratio: 3 / 2; display: flex; align-items: center; justify-content: center;
+  padding: 14px 18px; background: #fff; border: 1px solid var(--card-line); border-radius: var(--radius);
+}
+.logo-wall__item img { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
+.logo-wall--tools { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
+.logo-wall--tools .logo-wall__item { aspect-ratio: 2 / 1; padding: 16px 24px; }
+.logo-wall--tools .logo-wall__item img { max-width: 72%; max-height: 52px; }
+.funders { margin: 20px 0 0; }
+
+/* News cards: not on Home while there is no fresh news (owner decision D5); kept for when news returns. */
+.news-layout { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 1fr); gap: 24px; align-items: stretch; }
+.news { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.news > li { margin: 0; }
+/* Next-event tile: Home shows it on its own, in one column under the heading "Next event" (D5) */
+.event { --focus: #fff; max-width: 760px; padding: 24px; border-radius: var(--radius); background: var(--plum); color: #fff; }
+.event a { color: #fff; }
+.event__label { margin: 0 0 8px; font-size: 14px; line-height: 20px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.event__title { margin: 0 0 12px; color: #fff; font-size: 20px; line-height: 26px; }
+.event__text { margin: 0; }
+
+/* 13 Path engine (GOV.UK smart-answers pattern) ---------------------------- */
+.path-bar { background: var(--tint); border-bottom: 1px solid var(--card-line); }
+.path-bar__inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 24px; padding-top: 8px; padding-bottom: 8px; }
+.path-bar__name { margin: 0; }
+.path-bar__kicker { color: var(--pewter); }
+.path-bar__name strong { color: var(--plum); }
+.path-bar__links { margin: 0; display: flex; flex-wrap: wrap; gap: 0 24px; }
+.path-bar__links a { display: inline-flex; align-items: center; min-height: 44px; }
+.path-bar__back::before {
+  content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 8px;
+  border-left: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg);
+}
+.section--path { padding-top: 40px; }
+.path-page { max-width: 860px; }
+/* Start pages (design review P1.4): H1, lead, one sentence on who the path is for, then Question 1
+   (first answer above y 700 at 1440 x 900) */
+.path-page h1 { margin-bottom: 16px; }
+.path-for { margin: 0 0 24px; }
+.question { max-width: 760px; }
+.question__number { margin: 0 0 8px; color: var(--pewter); font-size: 18px; line-height: 24px; }
+.question__text { margin-bottom: 12px; }
+.help { margin: 0 0 20px; color: var(--pewter); }
+.answers { list-style: none; margin: 24px 0 0; padding: 0; display: grid; gap: 12px; }
+.answers > li { margin: 0; }
+.answer {                                     /* 1px pewter border: 7.1:1 (A11I-06) */
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  min-height: 60px; padding: 16px 20px; border: 1px solid var(--pewter); border-radius: var(--radius);
+  background: #fff; color: var(--ink); text-decoration: none; font-size: 18px; line-height: 26px;
+}
+.answer::after {
+  content: ""; flex: none; width: 24px; height: 24px;
+  background: var(--arrow) center / contain no-repeat; transition: transform .15s ease;
+}
+.answer:visited { color: var(--pewter); }     /* answers already tried (GOV.UK pattern): 7.1:1 white, 6.4:1 tint */
+.answer:hover { background: var(--tint); border-color: var(--plum); text-decoration: underline; }
+.answer:hover::after, .answer:focus-visible::after { transform: translateX(3px); }
+.answer:focus-visible { background: var(--tint); }
+/* Outcome page (owner decision D2). Source order: div.outcome__intro (kicker, H1, "This is for you if...",
+   summary, terms line), div.next-step#next-step, div.outcome__more (What you get, proof, "Not what you
+   need?", Start again). Below 1024px one column, so the next step comes straight after the summary; from
+   1024px a reading column of about 720px and a right-hand aside with the next step, sticky under the bar. */
+.outcome { max-width: 720px; }
+.outcome__kicker { margin: 0 0 8px; color: var(--plum); font-size: 14px; line-height: 20px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.for-you { margin: 0 0 28px; padding: 20px 24px; background: var(--tint); border-left: 6px solid var(--plum); border-radius: 0 var(--radius) var(--radius) 0; }
+.for-you__title { margin: 0 0 8px; color: var(--plum); font-size: 20px; line-height: 26px; }
+.for-you > :last-child { margin-bottom: 0; }
+.ticks { list-style: none; padding: 0; }
+.ticks li { position: relative; margin: 0 0 10px; padding-left: 32px; }
+.ticks li::before {
+  content: ""; position: absolute; left: 4px; top: 7px; width: 14px; height: 8px;
+  border-left: 3px solid var(--plum); border-bottom: 3px solid var(--plum); transform: rotate(-45deg);
+}
+.proof { margin: 0 0 36px; }                 /* div.proof wraps proof tiles + source line before "Not what you need?" */
+.proof > .stats, .proof > .cards { margin: 0; }
+.proof > .source-line { margin-top: 12px; }
+.terms-line { margin: 0 0 24px; color: var(--plum); font-size: 20px; line-height: 28px; font-weight: 700; }
+.next-step {
+  margin: 0 0 36px; padding: 24px; background: #fff;
+  border: 1px solid var(--card-line); border-top: 4px solid var(--plum); border-radius: var(--radius);
+}
+.next-step__title { margin: 0 0 16px; font-size: 24px; line-height: 30px; }
+.next-step .btn { margin-bottom: 16px; }
+.fallback-line { margin: 0; }
+.wrong-path { margin: 0 0 24px; padding-top: 24px; border-top: 1px solid var(--card-line); }
+.wrong-path__title { margin: 0 0 12px; color: var(--plum); font-size: 20px; line-height: 26px; }
+.wrong-path__list { list-style: none; margin: 0; padding: 0; }
+.wrong-path__list li { margin: 0 0 8px; }
+.wrong-path__hint { color: var(--pewter); }
+.start-again { margin: 0; }
+@media (min-width: 1024px) {
+  .outcome {
+    display: grid; max-width: none;
+    grid-template-columns: minmax(0, 720px) clamp(280px, 30%, 360px);
+    grid-template-rows: auto 1fr;
+    grid-template-areas: "intro aside" "more aside";
+    justify-content: space-between; column-gap: 48px;
+  }
+  .outcome__intro { grid-area: intro; }
+  .outcome__intro > :last-child { margin-bottom: 36px; }
+  .outcome__more { grid-area: more; }
+  .outcome > .next-step { grid-area: aside; align-self: start; position: sticky; top: calc(var(--bar-h) + 16px); margin: 0; }
+  .outcome > .next-step .btn { display: flex; width: 100%; }
+}
+
+/* 14 Page patterns --------------------------------------------------------- */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: center; }
+.split--text { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); }
+.split--top { align-items: start; }
+
+.tiles { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.tiles--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.tiles--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.tile { margin: 0; padding: 24px; background: var(--tint); border-radius: var(--radius); }
+.tile__title { margin: 0 0 10px; font-size: 20px; line-height: 26px; }
+.tile__tag { margin: 0 0 10px; }
+.tile > :last-child, .tile .ticks > li:last-child { margin-bottom: 0; }
+
+.terms { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.terms__item { margin: 0; padding: 30px 16px 26px; text-align: center; }
+.terms__figure { display: block; color: var(--accent); font-size: 64px; line-height: 1; font-weight: 700; }   /* "£0" too (P2.15) */
+.terms__label { display: block; margin-top: 10px; font-size: 20px; line-height: 26px; }
+
+.vb-usp { padding: 24px 28px; background: var(--tint); border-radius: var(--radius); }   /* no left border (D4) */
+.vb-usp__kicker { margin: 0 0 6px; color: var(--pewter); font-size: 14px; line-height: 20px; }
+.vb-usp__name { margin: 0 0 2px; }
+.vb-usp__from { margin: 0 0 12px; color: var(--pewter); font-size: 14px; line-height: 20px; }
+.vb-usp__gloss { margin: 0 0 16px; font-size: 20px; line-height: 28px; font-weight: 700; }
+.vb-usp > :last-child { margin-bottom: 0; }
+
+.facts { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 10px 32px; margin: 0 0 32px; padding: 24px; background: var(--tint); border-radius: var(--radius); }
+.facts dt { color: var(--plum); font-weight: 700; }
+.facts dd { margin: 0; }
+.facts--row { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px 32px; }
+.facts--row > div { min-width: 0; }
+.facts--stack { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+.facts--stack dd { margin-bottom: 14px; }
+.facts--stack dd:last-child { margin-bottom: 0; }
+.project-about { margin-top: 48px; }
+
+.filter { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 16px 32px; margin: 0 0 20px; padding: 20px 24px; background: var(--tint); border-radius: var(--radius); }
+.no-js .filter { display: none; }
+.filter__group { margin: 0; padding: 0; border: 0; min-width: 0; }
+.filter__legend, .filter__label { display: block; margin: 0 0 6px; padding: 0; color: var(--plum); font-weight: 700; }
+.filter__options { display: flex; flex-wrap: wrap; gap: 0 20px; }
+.filter__options label { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; cursor: pointer; }
+.filter__options input { width: 20px; height: 20px; margin: 0; accent-color: var(--plum); }
+.filter select { min-height: 44px; padding: 8px 12px; border: 1px solid var(--pewter); border-radius: 6px; background: #fff; color: var(--ink); font-family: var(--font); font-size: 16px; }
+.filter__count { margin: 0 0 16px; color: var(--pewter); }
+.filter__empty { margin: 0; padding: 20px 24px; background: var(--tint); border-radius: var(--radius); }
+
+.list-cards { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+.list-cards > li { margin: 0; }
+.list-cards--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+/* List card: a flex column, so the status line sits at the bottom of every card in a row (V1-10);
+   linked list cards carry the arrow at the bottom right, beside the status line. */
+.list-card { display: flex; flex-direction: column; height: 100%; padding: 26px 24px 20px; color: var(--ink); text-decoration: none; transition: transform .15s ease, box-shadow .15s ease; }
+.list-card__title { margin: 0 0 6px; color: var(--plum); font-size: 20px; line-height: 26px; }
+a.list-card:hover .list-card__title { text-decoration: underline; }
+.list-card__text { margin: 0 0 12px; }
+.list-card__meta { margin: auto 0 0; color: var(--pewter); font-size: 14px; line-height: 20px; }
+a.list-card .list-card__meta { padding-right: 40px; }
+a.list-card::after { position: absolute; right: 20px; bottom: 18px; margin: 0; }
+.list-card__meta .status { margin-right: 8px; }
+.status { display: inline-block; padding: 1px 8px; border-radius: 4px; font-size: 13px; line-height: 18px; font-weight: 700; }
+.status--active { background: var(--tint); border: 1px solid var(--line); color: var(--plum); }
+.status--completed { background: #fff; border: 1px solid var(--card-line); color: var(--pewter); }
+
+.disclosure { margin: 0 0 24px; border-top: 1px solid var(--card-line); }
+.disclosure__heading { margin: 0; font-size: 20px; line-height: 26px; border-bottom: 1px solid var(--card-line); }   /* a rule under every pillar (P3.8) */
+.no-js .disclosure__heading { padding: 16px 0 8px; }
+.disclosure__btn {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%;
+  min-height: 56px; margin: 0; padding: 14px 0; border: 0; background: none; color: var(--plum); cursor: pointer; text-align: left;
+  font-family: var(--font); font-size: 20px; line-height: 26px; font-weight: 700;
+}
+.disclosure__btn:hover { text-decoration: underline; }
+.disclosure__icon { position: relative; flex: none; width: 18px; height: 18px; }
+.disclosure__icon::before, .disclosure__icon::after { content: ""; position: absolute; left: 0; top: 8px; width: 18px; height: 2.5px; background: currentColor; }
+.disclosure__icon::after { transform: rotate(90deg); transition: transform .15s ease; }
+.disclosure__btn[aria-expanded="true"] .disclosure__icon::after { transform: rotate(0deg); }
+.disclosure__panel { padding: 16px 0 20px; border-bottom: 1px solid var(--card-line); }
+.journey { max-width: 900px; }
+.pillar { display: block; }
+.pillar__num { display: block; margin-bottom: 2px; color: var(--pewter); font-size: 14px; line-height: 20px; font-weight: 400; }
+
+.layers { list-style: none; margin: 0 0 24px; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; counter-reset: layer; }
+.layers > li { counter-increment: layer; margin: 0; padding: 18px 20px; background: var(--tint); border-top: 4px solid var(--line); border-radius: var(--radius); }
+.layers > li::before { content: counter(layer); display: block; margin-bottom: 6px; color: var(--plum); font-size: 32px; line-height: 1; font-weight: 700; }
+.layers > li.is-cbit { border-top-color: var(--plum); }   /* the layers CBIT runs: a plum rule (magenta is rationed, D4) */
+.layers__name { display: block; font-weight: 700; }
+.layers__who { display: block; margin-top: 6px; color: var(--pewter); font-size: 14px; line-height: 20px; }
+
+.countries { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.country { margin: 0; padding: 20px 24px; background: var(--tint); border-radius: var(--radius); }
+.country__name { margin: 0 0 6px; font-size: 22px; line-height: 28px; }
+.country p { margin: 0; }
+.country .country__centre { font-weight: 700; }
+.country .country__detail { margin-top: 8px; }
+
+/* Panels that are tint on white sections turn white (with a border) on tint sections */
+.section--tint .tile, .section--tint .facts, .section--tint .filter, .section--tint .filter__empty,
+.section--tint .for-you, .section--tint .vb-usp,
+.section--tint .layers > li, .section--tint .country { background: #fff; }
+.section--tint .tile, .section--tint .facts, .section--tint .filter, .section--tint .country { border: 1px solid var(--card-line); }
+
+/* 15 Footer: white recognition band, plum main band with the legal row ------- */
+.site-footer__recog { padding: 32px 0; background: #fff; border-top: 1px solid var(--card-line); }
+/* The two NBS shields render at the same height and line up (design review P2.16), measured in the files:
+   the CBIT lockup's shield fills its full height (392 of 393 px), so at 48px it is 47.9px tall; the NBS
+   logo's shield runs from 49 to 690 of 756 px, so at 57px it is 48.4px tall and starts 3.7px down. The
+   CBIT lockup drops 3.6px to line up with it, and the NBS image's transparent left margin (3.7px) is taken
+   back so the visible gap between the two logos is 40px. */
+.site-footer__logos { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 20px 40px; margin-bottom: 18px; }
+.site-footer__logo { display: block; width: auto; }
+.site-footer__logo--cbit { height: 48px; margin-top: 3.6px; }
+.site-footer__logo--nbs { height: 57px; margin-left: -3.7px; }
+.site-footer__award { margin: 0 0 4px; color: var(--plum); font-weight: 700; }
+.site-footer__part { margin: 0; }
+.site-footer__main { --focus: #fff; background: var(--plum); color: #fff; }
+.site-footer__main a { color: #fff; }
+.site-footer__cols { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px 20px; padding-top: 40px; padding-bottom: 32px; }
+.site-footer__heading { margin: 0 0 8px; color: #fff; font-size: 20px; line-height: 28px; }
+.site-footer__list { list-style: none; margin: 0; padding: 0; }
+.site-footer__list li { margin: 0 0 4px; }
+.site-footer__legal {
+  display: flex; flex-wrap: wrap; flex-direction: row-reverse; justify-content: space-between; align-items: center; gap: 0 24px;
+  border-top: 1px solid rgba(255, 255, 255, .25); font-size: 14px; line-height: 20px;
+}
+.site-footer__legal-list { list-style: none; margin: 14px 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 16px; }
+.site-footer__legal-list li { margin: 0; }
+.site-footer__copy { margin: 14px 0; }
+.js .site-footer__main { padding-bottom: 56px; }   /* room for the review toolbar (mockups only) */
+
+/* 16 Tablet and phone ------------------------------------------------------ */
+/* Below the bar breakpoint (owner decision D10; 1366px from T-055; back to 1280px in v4, T-099 — see F12 and
+   site.v4.js BAR_FULL) the bar shows the Menu disclosure (a native <details>, so it works without JavaScript and
+   the bar stays sticky) instead of the sections, so no section name ever breaks onto two lines. Down to 1024px
+   the lockup keeps its desktop size and the bar its 75px height. */
+@media (max-width: 1279px) { /* bar breakpoint */
+  .vb-bar__inner {
+    display: grid; grid-template-columns: minmax(0, 1fr) auto auto; grid-template-areas: "logo menu apply" "nav nav nav";
+    grid-template-rows: minmax(72px, auto) auto; align-items: center; column-gap: 8px; min-height: 0;
+  }
+  .vb-bar__logo { grid-area: logo; min-width: 0; margin: 0; }
+  .vb-bar__toggle { grid-area: menu; display: block; }
+  .vb-bar__menu {
+    display: inline-flex; align-items: center; gap: 8px; list-style: none;
+    min-height: 44px; margin: 0; padding: 0 10px; border: 2px solid rgba(255, 255, 255, .75); border-radius: 6px;
+    background: transparent; color: #fff; cursor: pointer; font-family: var(--font); font-size: 15px; line-height: 20px; font-weight: 700;
+  }
+  .vb-bar__menu::-webkit-details-marker { display: none; }
+  .vb-bar__menu::marker { content: ""; }
+  .vb-bar__toggle[open] > .vb-bar__menu { background: #fff; border-color: #fff; color: var(--plum); }
+  .vb-bar__apply { grid-area: apply; margin: 0; padding: 10px 16px; }
+  .vb-bar__nav { grid-area: nav; display: none; margin: 0 calc(-1 * var(--gutter)); border-top: 1px solid rgba(255, 255, 255, .25); }
+  .vb-bar__toggle[open] ~ .vb-bar__nav { display: block; }
+  .vb-bar__list { flex-direction: column; }
+  .vb-bar__item { display: block; }
+  .vb-bar__link { min-height: 48px; padding: 12px var(--gutter); border-bottom: 1px solid rgba(255, 255, 255, .15); }
+  .vb-bar__link[aria-current] { box-shadow: inset 5px 0 0 #fff; }
+}
+
+@media (max-width: 1023px) {
+  :root { --bar-h: 59px; }
+
+  /* NTU strip, compact (86px): logo and search button; the panel holds the form, options and utility links.
+     The button is a native <details> (div.ntu-bar__search), so the panel stays collapsed without JavaScript. */
+  .ntu-bar__inner {
+    grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "logo button" "tools tools";
+    height: auto; max-width: none; padding: 0 0 0 20px;
+  }
+  .ntu-bar__logo { width: 190px; height: 86px; padding-top: 3px; }
+  .ntu-bar__logo img { width: 190px; height: 80px; }
+  .ntu-bar__search { grid-area: button; display: block; }
+  .ntu-bar__search-btn {
+    display: flex; align-items: center; justify-content: center; list-style: none;
+    width: 60px; height: 86px; margin: 0; padding: 14px 20px 14px 14px; border: 0; border-radius: 0;
+    background: transparent; color: #333333; cursor: pointer;
+  }
+  .ntu-bar__search-btn::-webkit-details-marker { display: none; }
+  .ntu-bar__search-btn::marker { content: ""; }
+  .ntu-bar__search-btn .icon-close { display: none; }
+  .ntu-bar__search[open] .icon-open { display: none; }
+  .ntu-bar__search[open] .icon-close { display: block; }
+  .ntu-bar__search-btn:focus-visible { outline-offset: -4px; }
+  .ntu-bar__tools { display: none; width: auto; justify-self: stretch; padding: 0 20px 20px 0; }
+  .ntu-bar__search[open] ~ .ntu-bar__tools { display: block; }
+  .ntu-utility { height: auto; margin: 0 0 8px; text-align: left; }
+  .ntu-utility a { display: inline-flex; align-items: center; min-height: 44px; }
+  .ntu-search { margin: 0; }
+  .ntu-search__input { flex: 1 1 auto; width: auto; min-width: 0; }
+  .ntu-search__cats { flex-direction: column; padding-top: 8px; }
+  .ntu-search__cats label { min-height: 44px; }
+
+  /* Sticky bar, phone and tablet size: 34px lockup, 56px row (59px with the rule) */
+  .vb-bar__inner { grid-template-rows: minmax(56px, auto) auto; }
+  .vb-bar__logo { padding: 8px 0; }
+  .vb-bar__logo img { height: 34px; max-width: 100%; object-fit: contain; object-position: left center; }
+
+  /* Hero: one column below 1024px (design review P2.12): text, then the photo (Home: text, doors, photo) */
+  .hero__inner, .hero--home .hero__inner { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .hero__media { max-width: 720px; }
+
+  .stats, .stats--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cap-layout { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .cap-layout__figure { width: 100%; max-width: 720px; margin: 0 auto; }
+  .national { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .cards, .cards--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ventures__aside .stat { flex: 1 1 300px; }
+  .ventures__aside .btn-row { flex: 1 1 260px; }
+  .logo-wall { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .logo-wall--tools { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .news-layout { grid-template-columns: minmax(0, 1fr); }
+  .layers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .split, .split--text { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .tiles, .tiles--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .list-cards--2 { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .facts--row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .site-footer__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 767px) {
+  h1 { font-size: 36px; line-height: 42px; }
+  h2 { font-size: 28px; line-height: 36px; }
+  .section { padding: 48px 0; }
+  .hero { padding: 24px 0 40px; }
+  .hero__inner, .hero--home .hero__inner { gap: 28px; }
+  .hero__body .lead { font-size: 18px; line-height: 28px; }
+  .btn-row > .btn { flex: 1 1 auto; }
+  .statement { font-size: 22px; line-height: 30px; }
+  .s18 svg { width: 156%; margin: -8% -28% -5%; }
+  .timeline { grid-template-columns: minmax(0, 1fr); }
+  .timeline__step { padding: 0 0 20px 28px; border-top: 0; border-left: 4px solid var(--plum); }
+  .timeline__step:last-child { padding-bottom: 4px; }
+  .timeline__step::before { top: 0; left: -12px; }
+  .countries { grid-template-columns: minmax(0, 1fr); }
+  .quote-panel { grid-template-columns: minmax(0, 1fr); grid-template-areas: "photo" "quote" "cite"; row-gap: 20px; padding: 28px 24px; }
+  .quote-panel__photo { width: 140px; height: 140px; }
+  .quote-panel__quote { margin: 0; }
+  .quote-panel__quote p { font-size: 22px; line-height: 30px; }
+  .logo-wall { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .logo-wall__item { padding: 8px 10px; }
+  .logo-wall--tools .logo-wall__item { padding: 10px 12px; }
+  .path-bar__name { flex: 1 0 100%; }
+  .answer { padding: 14px 16px; font-size: 17px; line-height: 24px; }
+  .facts { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .facts dd { margin-bottom: 10px; }
+  .facts--row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 20px; }
+  .facts--row dd { margin-bottom: 0; }
+  .subhead { margin-top: 36px; }
+  .terms__figure { font-size: 44px; }
+  .terms__label { font-size: 16px; line-height: 22px; }
+  .project-about { margin-top: 36px; }
+  .site-footer__legal { flex-direction: column; align-items: flex-start; }
+  /* 44 x 44 targets on phones for stand-alone links */
+  .breadcrumb__list a, .site-footer__list a, .site-footer__legal-list a, .more-link, .cap__name a,
+  .wrong-path__list a, .start-again a, .hub-subpages a, .hub-page h3 a {
+    display: inline-flex; align-items: center; gap: 5px; min-height: 44px;
+  }
+  /* The source-line link gets its 44px target from padding, so the line keeps its height (P3.6) */
+  .source-line a { padding: 13px 0; }          /* 18px text box + 26px = a 44px target */
+  /* "Not what you need?": each hint under its own link, and room between items (V2-06) */
+  .wrong-path__list li { margin-bottom: 16px; }
+  .wrong-path__hint { display: block; }
+  .breadcrumb { padding-top: 4px; }
+}
+
+@media (max-width: 599px) {
+  .stats, .stats--2, .stats--4, .cards, .cards--2, .cards--3, .news, .layers, .tiles, .tiles--2, .tiles--4 { grid-template-columns: minmax(0, 1fr); }
+  .stat--wide { grid-column: auto; }
+  .stat__figure { font-size: 40px; line-height: 44px; }
+  .stat--award .stat__figure { font-size: 20px; line-height: 26px; }
+  .card__type { aspect-ratio: auto; min-height: 150px; }
+  .terms { gap: 8px; }
+  .terms__item { padding: 20px 6px 16px; }
+  .terms__figure { font-size: 36px; }
+  .facts--row { grid-template-columns: minmax(0, 1fr); }
+  /* Eyebrows and kickers: tighter letter-spacing on phones (P3.4) */
+  .eyebrow, .outcome__kicker, .event__label { letter-spacing: .06em; }
+  /* Home doors: compact full-width rows (owner decision D1) */
+  .hero--home { padding: 24px 0 32px; }
+  .doors { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .door { gap: 8px; padding: 11px 12px; }
+  .door::after { width: 20px; height: 20px; }
+  .door__label { font-size: 17px; line-height: 22px; }
+  /* Home "At a glance": two tiles a row with 32px figures (design review P2.11) */
+  .page-home .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .page-home .stat { padding: 16px 14px 14px; }
+  .page-home .stat__figure { font-size: 32px; line-height: 38px; }
+  /* Footer link columns stay two a row (from the 1023px query), so the footer is half as long (P2.11) */
+  .next-step .btn { display: flex; width: 100%; }
+}
+
+/* 17 Review tools (mockups only; not part of the design) -------------------
+   Anchored bottom right (the reading column is on the left, so first-screen text stays clear); below
+   768px it folds into a 44 x 44 round "Review" button. Focused items scroll clear of it. */
+html.js { scroll-padding-bottom: 72px; }
+.review-bar {
+  --focus: var(--review);
+  position: fixed; right: 12px; bottom: 12px; z-index: 900;
+  display: flex; flex-direction: column-reverse; align-items: flex-end;
+  font-family: Arial, sans-serif; font-size: 13px; line-height: 18px;
+}
+.no-js .review-bar, .no-js .review-drawer { display: none !important; }
+.review-bar__panel {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 4px; padding: 6px;
+  border: 2px solid var(--review); border-radius: 6px; background: #fff; color: var(--review);
+  box-shadow: 0 4px 16px rgba(26, 26, 26, .18);
+}
+.review-bar__btn {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 32px; margin: 0; padding: 6px 10px;
+  border: 1px solid var(--review); border-radius: 4px; background: #fff; color: var(--review);
+  font: inherit; text-decoration: none; white-space: nowrap; cursor: pointer;
+}
+.review-bar__btn:hover { background: #E8F1FA; }
+.review-bar__btn[aria-pressed="true"] { background: var(--review); color: #fff; }
+.review-bar__state { font-weight: 700; }
+.review-bar__toggle { display: none; }
+.review-bar :focus-visible { outline-offset: 1px; }
+html.review-on [data-review]:not(:focus-visible) { outline: 2px dashed var(--review); outline-offset: 3px; }
+html.review-on .card [data-review]:not(:focus-visible) { outline-offset: -3px; }
+.review-layer { position: absolute; top: 0; left: 0; width: 0; height: 0; z-index: 800; }
+.review-badge {
+  position: absolute; width: 22px; height: 22px; border-radius: 50%;
+  background: var(--review); color: #fff; box-shadow: 0 0 0 2px #fff;
+  font: 700 12px/22px Arial, sans-serif; text-align: center; cursor: help; user-select: none;
+}
+.review-tip {
+  position: fixed; z-index: 950; max-width: min(340px, calc(100vw - 24px)); padding: 8px 10px;
+  border: 2px solid var(--review); background: #fff; color: var(--ink);
+  font: 14px/20px Arial, sans-serif; box-shadow: 0 6px 18px rgba(26, 26, 26, .2); pointer-events: none;
+}
+.review-flash { outline: 4px solid var(--review) !important; outline-offset: 4px !important; }
+.review-drawer {
+  --focus: var(--review);
+  position: fixed; right: 12px; bottom: 64px; z-index: 910;
+  width: min(440px, calc(100vw - 24px)); max-height: min(60vh, 520px); overflow: auto;
+  padding: 16px 20px; border: 2px solid var(--review); border-radius: 6px; background: #fff;
+  box-shadow: 0 8px 28px rgba(26, 26, 26, .25);
+}
+.review-drawer__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+.review-drawer__title { margin: 0; color: var(--ink); font-size: 18px; line-height: 24px; }
+.review-drawer__title:focus { outline: none; }
+.review-drawer__close {
+  min-height: 36px; padding: 4px 12px; border: 2px solid var(--review); border-radius: 4px;
+  background: #fff; color: var(--review); font-family: Arial, sans-serif; font-weight: 700; cursor: pointer;
+}
+.review-drawer__list { list-style: none; margin: 0; padding: 0; }
+.review-drawer__item { margin: 0; border-top: 1px solid var(--card-line); }
+.review-drawer__go {
+  display: flex; align-items: flex-start; gap: 10px; width: 100%; margin: 0; padding: 10px 0;
+  border: 0; background: none; color: var(--ink); text-align: left; cursor: pointer;
+  font-family: Arial, sans-serif; font-size: 14px; line-height: 20px;
+}
+.review-drawer__go:hover .review-drawer__text { text-decoration: underline; }
+.review-drawer__num {
+  flex: none; width: 22px; height: 22px; border-radius: 50%;
+  background: var(--review); color: #fff; font: 700 12px/22px Arial, sans-serif; text-align: center;
+}
+.review-drawer__where { display: block; color: var(--pewter); font-size: 12px; line-height: 16px; }
+.review-drawer__empty { padding: 8px 0; color: var(--pewter); }
+@media (max-width: 767px) {
+  .review-bar__toggle {
+    display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; margin: 0; padding: 0;
+    border: 2px solid #fff; border-radius: 22px; background: var(--review); color: #fff; cursor: pointer;
+    box-shadow: 0 4px 14px rgba(26, 26, 26, .3);
+  }
+  .review-bar__toggle-text {                         /* the name stays for assistive technology */
+    position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden;
+    clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0;
+  }
+  .review-bar__panel { display: none; flex-direction: column; align-items: stretch; margin-bottom: 8px; max-width: calc(100vw - 24px); }
+  .review-bar.is-open .review-bar__panel { display: flex; }
+  .review-bar__btn { min-height: 44px; justify-content: flex-start; }
+  .review-drawer { bottom: 68px; max-height: 55vh; }
+}
+
+/* 18 Review hub (CBIT house style, no NTU strip) ---------------------------- */
+.layout-hub { color: var(--ink); }
+.hub-header { border-bottom: 1px solid var(--card-line); }
+.hub-header__inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding-top: 24px; padding-bottom: 24px; }
+.hub-header__logo { display: block; width: auto; height: 48px; }
+.hub-header__tag { margin: 0; color: var(--pewter); font-size: 14px; line-height: 20px; }
+.hub h1 { font-size: 44px; line-height: 52px; margin-bottom: 20px; }
+.hub h2 { color: var(--plum); font-size: 28px; line-height: 36px; }
+.hub-intro { padding: 48px 0 32px; }
+.hub-lead { max-width: 860px; font-size: 20px; line-height: 30px; }
+.hub-meta { margin: 0; color: var(--pewter); font-size: 14px; line-height: 20px; }
+.hub-section { padding: 40px 0; }
+.hub-section--tint { background: var(--tint); }
+.hub-steps { max-width: 900px; padding-left: 24px; }
+.hub-steps li { margin-bottom: 12px; padding-left: 4px; }
+.hub-pages { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.hub-page { margin: 0; padding: 16px 20px; background: #fff; border: 1px solid var(--card-line); border-radius: var(--radius); }   /* plain border (D4, P3.16) */
+.hub-page h3 { margin: 0 0 6px; font-size: 20px; line-height: 26px; }
+.hub-page p { margin: 0; }
+.hub-subpages { margin: 10px 0 0; padding-left: 20px; columns: 2; column-gap: 24px; font-size: 15px; line-height: 22px; }
+.hub-subpages li { margin: 0 0 4px; break-inside: avoid; }
+.hub-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; }
+.hub-list { padding-left: 22px; }
+.hub-list li { margin-bottom: 10px; }
+.hub-link { font-size: 18px; font-weight: 700; }
+.hub-small { color: var(--pewter); font-size: 14px; line-height: 20px; }
+.hub-footer { padding: 24px 0 72px; border-top: 1px solid var(--card-line); color: var(--pewter); font-size: 14px; line-height: 20px; }
+.hub-footer p { margin: 0; }
+@media (max-width: 1023px) {
+  .hub-pages, .hub-cols { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 599px) {
+  .hub h1 { font-size: 34px; line-height: 40px; }
+  .hub-subpages { columns: 1; }
+}
+
+/* 19 Print ------------------------------------------------------------------ */
+@media print {
+  .review-bar, .review-drawer, .review-layer, .review-tip, .skip-link { display: none !important; }
+  html.review-on [data-review] { outline: none !important; }
+  .vb-bar { position: static; box-shadow: none; }
+  .s18 .corepulse, .s18 .feed, .s18 .loop { animation: none; }
+}
+
+/* 20 Round 2 (service map v2) ---------------------------------------------------------------------------
+   Everything below is new in design round 2. It follows the same rules: brand tokens only, magenta only
+   for the H1, key figures and one primary button per view (D4), plum for H2s, links and rules, the
+   gradient only on the bar rule, the hero rule and the quote panel. */
+
+/* 20.1 The audience-led bar (v2 SM1, SM18) and its menus (v2 7a) ---------------------------------------
+   Without JavaScript each label is a plain link and every panel is hidden (the [hidden] attribute).
+   site.v4.js turns each label that has a panel into a disclosure button (.vb-bar__btn, aria-expanded)
+   and toggles the panel. From 1280px a panel is a full-width white sheet under the bar; below 1280px it
+   opens inline, as an accordion inside the Menu (section 20.2). */
+.vb-bar__btn {
+  gap: 7px; margin: 0; border: 0; border-radius: 0; background: transparent; cursor: pointer;
+  font-family: var(--font); font-weight: 400; text-align: left;
+}
+.vb-bar__btn::after {                                     /* a small caret; points up while open */
+  content: ""; flex: none; width: 7px; height: 7px; margin-top: -4px;
+  border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg);
+  transition: transform .15s ease;
+}
+.vb-bar__btn[aria-expanded="true"]::after { margin-top: 3px; transform: rotate(-135deg); }
+.vb-bar__btn:hover { text-decoration: underline; text-underline-offset: 4px; }
+.vb-menu {
+  --focus: var(--plum);                                   /* the panel is white: plum focus ring */
+  position: absolute; left: 0; right: 0; top: calc(100% + 3px); z-index: 1;
+  max-height: calc(100vh - var(--bar-h)); overflow-y: auto;
+  background: #fff; color: var(--ink);
+  border-bottom: 1px solid var(--card-line); box-shadow: 0 18px 36px rgba(26, 26, 26, .18);
+}
+.vb-menu__inner {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1fr);
+  gap: 16px 48px; padding-top: 28px; padding-bottom: 32px;
+}
+.vb-menu__head { min-width: 0; }
+.vb-menu__title { margin: 0 0 6px; color: var(--plum); font-size: 20px; line-height: 26px; font-weight: 700; }
+.vb-menu__title-link { color: var(--plum); text-decoration: none; }
+.vb-menu__title-link:hover { text-decoration: underline; }
+.vb-menu__title-link::after {
+  content: ""; display: inline-block; width: 18px; height: 18px; margin-left: 8px; vertical-align: -3px;
+  background: var(--arrow) center / contain no-repeat;
+}
+.vb-menu__tagline { margin: 0; color: var(--pewter); font-size: 15px; line-height: 22px; }
+.vb-menu__list, .vb-menu__more { list-style: none; margin: 0; padding: 0; align-self: start; }
+.vb-menu__list { columns: 2; column-gap: 32px; }        /* reads down the first column, in the menu's order */
+.vb-menu__list li, .vb-menu__more li { margin: 0; break-inside: avoid; }
+.vb-menu__link {
+  display: flex; align-items: center; min-height: 44px; padding: 8px 0;
+  border-bottom: 1px solid var(--card-line); color: var(--ink); text-decoration: none; font-size: 16px; line-height: 22px;
+}
+.vb-menu__link:hover { color: var(--plum); text-decoration: underline; text-underline-offset: 3px; }
+.vb-menu__link[aria-current] { color: var(--plum); font-weight: 700; }
+.vb-menu__link--path { color: var(--plum); font-weight: 700; }
+.vb-menu__link--path::after {
+  content: ""; flex: none; width: 20px; height: 20px; margin-left: 8px; background: var(--arrow) center / contain no-repeat;
+}
+.vb-menu__inbox { padding-top: 12px; color: var(--pewter); font-size: 15px; line-height: 22px; }
+.vb-menu__inbox a { color: var(--plum); }
+
+/* The bar's Apply outside the founder door: white-outlined, so the page's own next step is the only
+   magenta button (round-2 brief section 2; IT-005). */
+.vb-bar__apply--outline { background: transparent; box-shadow: inset 0 0 0 2px #fff; }
+.vb-bar__apply--outline:hover { background: #fff; color: var(--plum); box-shadow: inset 0 0 0 2px #fff; }
+
+/* The full bar (D10): until fix round 2, part B, seven one-line labels at 15px up to 1439px and 16px from 1440px. Part B
+   sets two-line labels, one size at every width, and moves the breakpoint: see "F12" in the part B block at the end.
+   v4 (T-099): five one-line labels at 16px from 1280px again (F12, and the T-099 block at the end). */
+
+/* 20.2 Below the bar breakpoint: the menus open inside the Menu, as an accordion ------------------------- */
+@media (max-width: 1279px) { /* bar breakpoint */
+  .vb-bar__toggle[open] ~ .vb-bar__nav {
+    max-height: calc(100vh - var(--bar-h)); max-height: calc(100dvh - var(--bar-h));
+    overflow-y: auto; overscroll-behavior: contain;
+  }
+  .vb-bar__btn { width: 100%; justify-content: space-between; }
+  .vb-bar__btn::after { margin-right: 4px; }
+  .vb-bar__btn[aria-expanded="true"] { box-shadow: inset 0 -1px 0 rgba(255, 255, 255, .15); }
+  .vb-menu { position: static; max-height: none; overflow: visible; box-shadow: none; border-bottom: 0; }
+  .vb-menu__inner { display: block; max-width: none; padding: 8px 0 12px; }
+  .vb-menu__head { padding: 6px var(--gutter) 10px calc(var(--gutter) + 12px); }
+  .vb-menu:not(.vb-menu--door) .vb-menu__head { display: none; }   /* "Proof" and "About" would repeat the label */
+  .vb-menu__title { margin: 0; font-size: 18px; line-height: 24px; }
+  .vb-menu__tagline { margin-top: 2px; font-size: 14px; line-height: 20px; }
+  .vb-menu__list { columns: 1; }
+  .vb-menu__link { padding: 10px var(--gutter) 10px calc(var(--gutter) + 12px); }
+  .vb-menu__inbox { padding: 12px var(--gutter) 4px calc(var(--gutter) + 12px); }
+}
+
+/* 20.3 People-first doors on Home (D1; v2 7b): the door name, its tagline, and its first step where there
+   is room (from 1280 x 860, as in round 1, so the four doors stay in the first screen). */
+.door__tagline { margin: 3px 0 0; color: var(--ink); font-size: 15px; line-height: 21px; }
+.door__desc { color: var(--pewter); font-size: 14px; line-height: 20px; }
+.hero--home .hero__strap { margin-bottom: 8px; }
+@media (max-width: 599px) {
+  .door__tagline { font-size: 14px; line-height: 19px; }
+}
+
+/* 20.4 Audience pages ----------------------------------------------------------------------------------- */
+.hero__for { max-width: 640px; color: var(--pewter); font-size: 16px; line-height: 24px; }
+.section--slim { padding: 40px 0; }
+.cards--services .cards__lead { grid-column: 1 / -1; }
+.card--lead { background: var(--tint); }
+.card--lead .card__body { padding: 24px 28px; }
+/* .card--lead .card__eyebrow: one eyebrow style on every card (fix round 2, P3.3), so the lead card keeps .card__eyebrow */
+.card--lead .card__title { font-size: 24px; line-height: 30px; }
+.card--lead .card__text { max-width: 860px; font-size: 18px; line-height: 28px; }
+.path-entry { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px; }
+.path-entry h2 { margin: 0 0 6px; }
+.path-entry p { margin: 0; }
+.crcrm + .stats { margin-top: 24px; }
+.proof > .crcrm--first { margin: 0 0 20px; }
+
+/* Story slots: a marked placeholder until the service map's stories are verified (A1). */
+.story { padding: 24px; background: #fff; border: 1px solid var(--card-line); border-radius: var(--radius); }
+.story--placeholder { border: 2px dashed var(--line); }
+.story__kicker {
+  margin: 0 0 6px; color: var(--pewter); font-size: 14px; line-height: 20px; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+}
+.story__title { margin: 0 0 8px; font-size: 22px; line-height: 28px; }
+.story__text { margin: 0; }
+.story__more { margin: 12px 0 0; }
+.outcome__more .story { margin: 0 0 36px; }
+.story-layout { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 32px 48px; align-items: start; }
+.story-links__title { margin: 0 0 12px; font-size: 20px; line-height: 26px; }
+.story-links__list { list-style: none; margin: 0; padding: 0; }
+.story-links__list li { margin: 0 0 8px; }
+
+/* Work with CBIT (v2 7c), on the plum band, with rung 1 beside it (v2 6c). */
+.work-with { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 32px 56px; align-items: start; }
+.work-with__block h2 { margin: 0 0 16px; }
+.work-with__contract { max-width: 760px; font-size: 18px; line-height: 28px; }
+.work-with__start { max-width: 760px; }
+.work-with__action { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
+.work-with__tell, .work-with__alt { margin: 0; }
+.work-with > .work-with__action { flex-direction: column; align-items: flex-start; align-self: center; }
+.rung-card { --focus: var(--plum); padding: 24px; border-radius: var(--radius); background: #fff; color: var(--ink); }
+.rung-card__kicker {
+  margin: 0 0 6px; color: var(--pewter); font-size: 14px; line-height: 20px; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+}
+.section--tyrian .rung-card .rung-card__title { margin: 0 0 8px; color: var(--plum); font-size: 22px; line-height: 28px; }
+.section--tyrian .rung-card a { color: var(--plum); }
+.section--tyrian .rung-card .btn--secondary { background: transparent; border-color: var(--plum); color: var(--plum); }
+.section--tyrian .rung-card .btn--secondary:hover { background: var(--plum); border-color: var(--plum); color: #fff; }
+.rung-card__more { margin: 12px 0 0; }
+
+/* Rung 1 on Home: "Book a keynote or masterclass" (replaces round 1's next-event tile). */
+.rung { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 32px 56px; align-items: center; }
+.rung__lead { max-width: 760px; font-size: 18px; line-height: 28px; }
+.rung__more { margin: 16px 0 0; }
+.rung__proof .stat { max-width: 360px; }
+
+/* 20.5 Service pages, on the outcome layout (D2) ------------------------------------------------------- */
+.why-now { margin: 0 0 36px; padding: 20px 24px; border-radius: var(--radius); background: var(--tint); }
+.why-now p { margin: 0 0 12px; }
+.why-now .why-now__source { margin: 0; color: var(--pewter); font-size: 14px; line-height: 20px; }
+.ticks--next li a { white-space: nowrap; }             /* the link to the next rung stays whole (phones: section 20.8) */
+.wrong-path__intro { margin: 0 0 8px; }
+.wrong-path__path { margin: 0 0 16px; }
+.door-services { list-style: none; margin: 0 0 16px; padding: 0; columns: 2; column-gap: 32px; }
+.door-services li { margin: 0 0 8px; break-inside: avoid; }
+.cards--projects .card__eyebrow { color: var(--plum); font-weight: 700; }
+
+/* 20.6 Round-2 stubs ------------------------------------------------------------------------------------- */
+.hero--stub .eyebrow { color: var(--pewter); }
+.stub-list { max-width: 900px; }
+.stub-note { max-width: 900px; color: var(--pewter); }
+
+/* 20.7 Review hub v2 ----------------------------------------------------------------------------------- */
+.hub-changes__date { margin: 28px 0 10px; font-size: 20px; line-height: 26px; }
+.hub-changes .hub-list { max-width: 980px; }
+.hub-group { margin: 28px 0 0; }
+.hub-group__title { margin: 0 0 12px; font-size: 22px; line-height: 28px; }
+.hub-page__title { margin: 0 0 6px; font-size: 20px; line-height: 26px; }
+.hub-page__status { margin: 0 0 6px; }
+.hub-page__look { margin: 0; font-size: 15px; line-height: 22px; }
+.hub-page--stub { background: var(--tint); }
+.hub-status { display: inline-block; padding: 1px 8px; border-radius: 4px; font-size: 13px; line-height: 18px; font-weight: 700; }
+.hub-status--built { background: var(--plum); color: #fff; }
+.hub-status--stub { background: #fff; border: 1px solid var(--line); color: var(--pewter); }
+.hub-table-wrap { overflow-x: auto; }
+.hub-table { width: 100%; min-width: 760px; border-collapse: collapse; background: #fff; font-size: 15px; line-height: 22px; }
+.hub-table th, .hub-table td { padding: 10px 12px; border-bottom: 1px solid var(--card-line); text-align: left; vertical-align: top; }
+.hub-table thead th { color: var(--plum); border-bottom: 2px solid var(--plum); }
+.hub-table tbody th { min-width: 180px; color: var(--ink); font-weight: 700; }
+.hub-slot { max-width: 900px; padding: 20px 24px; border: 2px dashed var(--line); border-radius: var(--radius); background: #fff; }
+.hub-slot__label { margin: 0 0 8px; color: var(--plum); font-weight: 700; }
+.hub-slot > :last-child { margin-bottom: 0; }
+
+/* 20.8 Tablet and phone ---------------------------------------------------------------------------------- */
+@media (max-width: 1023px) {
+  .work-with, .rung, .story-layout { grid-template-columns: minmax(0, 1fr); }
+  .work-with > .work-with__action { align-self: start; }
+}
+@media (max-width: 767px) {
+  .door-services { columns: 1; }
+  .card--lead .card__body { padding: 20px; }
+  .card--lead .card__title { font-size: 22px; line-height: 28px; }
+  .card--lead .card__text { font-size: 17px; line-height: 27px; }
+  .work-with__contract, .rung__lead { font-size: 17px; line-height: 27px; }
+  .ticks--next li a { white-space: normal; }
+  .door-services a, .story-links__list a, .wrong-path__path a, .rung__more a, .rung-card__more a,
+  .work-with__alt a, .story__more a, .hub-page__title a, .vb-menu__inbox a {
+    display: inline-flex; align-items: center; min-height: 44px;
+  }
+}
+
+/* === wave B3 === */
+/* Wave B3 of design round 2 (ceo-xm T-042): the components that Proof (Ventures, Research projects,
+   BeefTwin, Impact stories, Sources), About (How we work, People, Keynotes and masterclasses, Digital
+   platforms, News), Contact and the two notices add. Only wave B3 edits this block (wave-B rules). Same
+   rules as section 20: brand tokens only; magenta only for the H1, key figures and one primary button per
+   view (D4); plum for H2s, links and rules; the gradient only on the bar rule, the hero rule and the quote
+   panel; tint panels turn white on tint sections.
+
+    B3.1 Small shared pieces        B3.5 People (profile, record)     B3.8 Sources (generated list)
+    B3.2 Impact stories             B3.6 How we work (where CBIT sits) B3.9 Notices
+    B3.3 The partnership ladder     B3.7 Contact and News             B3.10 Tablet and phone
+    B3.4 Keynotes (service page)                                                                    */
+
+/* B3.1 Small shared pieces ----------------------------------------------------------------------------- */
+.hero .fallback-line { margin: 12px 0 0; font-size: 15px; line-height: 22px; }
+.section__head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 8px 32px; margin: 0 0 24px; }
+.section__head > h2 { margin: 0; }
+.section__head > p { margin: 0; max-width: 640px; color: var(--pewter); }
+.list-card__go { margin: auto 0 8px; padding-top: 4px; color: var(--plum); font-size: 14px; line-height: 20px; font-weight: 700; }   /* where a linked card goes: sits on the meta line */
+.list-card__go + .list-card__meta { margin-top: 0; }
+div.list-card { padding-bottom: 22px; }                  /* a card that is not a link: no arrow, same rhythm */
+.tile__part { margin: 16px 0 0; padding-top: 12px; border-top: 1px solid var(--line); font-size: 15px; line-height: 22px; }   /* Digital platforms: the service it is part of */
+
+/* B3.2 Impact stories: jump links to the four doors, one group per door, full story cards -------------- */
+.jump-links { list-style: none; margin: 28px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px 12px; }
+.jump-links li { margin: 0; }
+.jump-links a {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 8px 18px;
+  border: 1px solid var(--line); border-radius: 22px; background: #fff;
+  color: var(--plum); font-size: 15px; line-height: 20px; font-weight: 700; text-decoration: none;
+}
+.jump-links a:hover { border-color: var(--plum); text-decoration: underline; }
+.story-group__head { margin: 0 0 28px; }
+.story-group__head h2 { margin: 0 0 4px; }
+.story-group__tagline { margin: 0; color: var(--pewter); font-size: 18px; line-height: 28px; }
+.story-group__tagline a { font-weight: 700; }
+.story-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: start; }
+.story-list > li { margin: 0; }
+.story--full { padding: 26px 28px 24px; }
+.story--full .story__title { margin: 0 0 12px; font-size: 22px; line-height: 29px; }
+.story__who { margin: 0 0 16px; }
+.story__who strong { color: var(--plum); }
+.story__facts { margin: 0; }
+.story__facts dt { margin: 0; color: var(--plum); font-size: 15px; line-height: 22px; font-weight: 700; }
+.story__facts dd { margin: 2px 0 14px; }
+.story__facts dd:last-child { margin-bottom: 0; }
+.story--full .story__more { margin: 16px 0 0; padding-top: 14px; border-top: 1px solid var(--card-line); }
+.story-list .story--placeholder .story__text, .team-slot .story__text { color: var(--pewter); }
+
+/* B3.3 The partnership ladder (v2 6a and 6b): six rungs that rise like a staircase from 1280px -------- */
+.ladder-intro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 32px 56px; align-items: center; margin: 0 0 40px; }
+.ladder-intro__text > :last-child { margin-bottom: 0; }
+.ladder-intro__photo img { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius); }
+.ladder__credit { color: var(--pewter); font-size: 15px; line-height: 22px; }
+.ladder { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; align-items: start; }
+.ladder__rung {
+  display: flex; flex-direction: column; margin: 0; padding: 16px 16px 18px;
+  background: #fff; border: 1px solid var(--card-line); border-top: 4px solid var(--plum); border-radius: var(--radius);
+}
+.ladder__num { margin: 0 0 4px; color: var(--pewter); font-size: 14px; line-height: 20px; font-weight: 700; }
+.ladder__name { margin: 0 0 6px; font-size: 20px; line-height: 26px; }
+.ladder__what { margin: 0 0 12px; color: var(--pewter); font-size: 15px; line-height: 22px; }
+.ladder__steps { list-style: none; margin: 0; padding: 12px 0 0; border-top: 1px solid var(--card-line); }
+.ladder__steps li { margin: 0 0 10px; font-size: 15px; line-height: 22px; }
+.ladder__steps li:last-child { margin-bottom: 0; }
+.ladder__when { display: block; color: var(--plum); font-weight: 700; }
+.ladder__story { margin: 12px 0 0; font-size: 15px; line-height: 22px; }
+.ladder__story a { font-weight: 700; }
+.ladder__foot { margin: 28px 0 0; max-width: 860px; }
+@media (min-width: 1280px) {
+  .ladder__rung:nth-child(1) { margin-top: 150px; }
+  .ladder__rung:nth-child(2) { margin-top: 120px; }
+  .ladder__rung:nth-child(3) { margin-top: 90px; }
+  .ladder__rung:nth-child(4) { margin-top: 60px; }
+  .ladder__rung:nth-child(5) { margin-top: 30px; }
+}
+
+/* B3.4 Keynotes and masterclasses (a service page on the outcome layout, D2) ------------------------- */
+.outcome__more .quote-panel { grid-template-columns: 140px minmax(0, 1fr); column-gap: 28px; margin: 0 0 36px; padding: 32px; }
+.outcome__more .quote-panel__photo { width: 140px; height: 140px; }
+.outcome__more .quote-panel__quote p { font-size: 22px; line-height: 31px; }
+.outcome__more .story--full { margin: 0 0 36px; }
+.proof > .stats + .crcrm { margin-top: 24px; }
+.record-stats .stat__kicker { font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+
+/* B3.5 People: one profile (K44), the record in registry wording, the team to come ------------------- */
+.profile { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: 32px 56px; align-items: start; }
+.profile__photo img { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; object-position: 53% 38%; border-radius: var(--radius); }
+.profile__body > h2 { margin: 0 0 6px; }
+.profile__role { margin: 0 0 20px; color: var(--pewter); font-size: 18px; line-height: 28px; }
+.profile__body > :last-child { margin-bottom: 0; }
+.profile__quote { margin: 8px 0 24px; }                   /* no coloured border: only the "This is for you if…" inset has one (D4) */
+.profile__quote blockquote { margin: 0 0 8px; }
+.profile__quote blockquote p { margin: 0; color: var(--plum); font-size: 22px; line-height: 31px; font-weight: 700; }
+.profile__quote blockquote p::before { content: "\201C"; }
+.profile__quote blockquote p::after { content: "\201D"; }
+.profile__quote figcaption { color: var(--pewter); font-size: 15px; line-height: 22px; }
+.record { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 40px; margin: 28px 0 0; }
+.record__title { margin: 0 0 12px; font-size: 20px; line-height: 26px; }
+.record .ticks { margin: 0; }
+.record__era { display: block; color: var(--pewter); font-size: 14px; line-height: 20px; }
+.team-slot { max-width: 760px; }
+
+/* B3.6 How we work: where CBIT sits (NTU, NBS, CBIT, the CBIT Venture Builder), as nested boxes ------- */
+.nest { list-style: none; margin: 0; padding: 0; max-width: 860px; }
+.nest li { margin: 0; }
+.nest__box { padding: 18px 22px 22px; background: #fff; border: 1px solid var(--card-line); border-radius: var(--radius); }
+.nest__box .nest { margin-top: 14px; }
+.nest__name { display: block; color: var(--plum); font-size: 18px; line-height: 24px; font-weight: 700; }
+.nest__note { display: block; margin-top: 2px; color: var(--pewter); font-size: 15px; line-height: 22px; }
+.nest__box--cbit { border: 2px solid var(--plum); }
+.nest__box--vb { background: var(--tint); border-color: var(--line); }
+.where-cbit { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px 56px; align-items: start; }
+.where-cbit__text > :last-child { margin-bottom: 0; }
+
+/* B3.7 Contact and News -------------------------------------------------------------------------------- */
+.inboxes .tile { display: flex; flex-direction: column; }
+.inboxes .tile__title { overflow-wrap: anywhere; }
+.inboxes .tile__title a { text-decoration: none; }
+.inboxes .tile__title a:hover { text-decoration: underline; }
+.inboxes .tile .ticks { margin: 0 0 16px; }
+.inboxes .tile .btn { align-self: flex-start; margin-top: auto; }
+.contact-address { margin: 0 0 16px; font-style: normal; }
+.contact-address span { display: block; }
+.news-item { max-width: 760px; }
+.card--news .card__eyebrow time { color: var(--ink); }
+
+/* B3.8 Sources: the registry figures found on the round-2 pages (gen-sources-page.v4.mjs) ------------- */
+.source-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; align-items: start; }
+.source-entry { margin: 0; padding: 22px 24px; background: #fff; border: 1px solid var(--card-line); border-radius: var(--radius); }
+.source-entry__id { margin: 0 0 8px; }
+.source-entry__wording { margin: 0 0 14px; color: var(--ink); font-size: 18px; line-height: 27px; font-weight: 700; }
+.source-entry__shown { margin: -6px 0 14px; color: var(--pewter); font-size: 15px; line-height: 22px; }
+.source-entry dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 6px 18px; margin: 0; font-size: 15px; line-height: 22px; }
+.source-entry dt { color: var(--plum); font-weight: 700; }
+.source-entry dd { margin: 0; min-width: 0; }
+.source-entry__pages { list-style: none; margin: 0; padding: 0; }
+.source-entry__pages li { margin: 0 0 2px; }
+.source-rules { max-width: 860px; }
+
+/* B3.9 Notices (accessibility statement, privacy notice): short drafts -------------------------------- */
+.notice { max-width: 820px; }
+.notice h2 { margin-top: 40px; font-size: 26px; line-height: 34px; }
+.notice h2:first-child { margin-top: 0; }
+
+/* B3.10 Tablet and phone ------------------------------------------------------------------------------- */
+@media (max-width: 1279px) {
+  .ladder { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 1023px) {
+  .story-list, .source-list, .record, .where-cbit { grid-template-columns: minmax(0, 1fr); }
+  .ladder-intro, .profile { grid-template-columns: minmax(0, 1fr); }
+  .ladder-intro__photo, .profile__photo { max-width: 560px; }
+  .profile__photo { max-width: 320px; }
+}
+@media (max-width: 767px) {
+  .ladder { grid-template-columns: minmax(0, 1fr); gap: 0; padding-left: 20px; border-left: 4px solid var(--plum); }
+  .ladder__rung { position: relative; margin: 0 0 12px; border-top: 1px solid var(--card-line); }
+  .ladder__rung::before {
+    content: ""; position: absolute; top: 20px; left: -32px; width: 20px; height: 20px; border-radius: 50%;
+    background: var(--plum); border: 4px solid var(--tint);
+  }
+  .ladder__rung:last-child { margin-bottom: 0; }
+  .story--full { padding: 22px 20px 20px; }
+  .story--full .story__title { font-size: 20px; line-height: 27px; }
+  .outcome__more .quote-panel { grid-template-columns: minmax(0, 1fr); padding: 24px 20px; }
+  .outcome__more .quote-panel__photo { width: 120px; height: 120px; }
+  .outcome__more .quote-panel__quote p { font-size: 20px; line-height: 28px; }
+  .source-entry { padding: 18px 16px; }
+  .nest__box { padding: 14px 14px 16px; }
+  .source-entry dl { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .source-entry dd { margin-bottom: 10px; }
+  .notice h2 { font-size: 24px; line-height: 31px; }
+  .jump-links a, .ladder__story a, .story-group__tagline a {
+    display: inline-flex; align-items: center; min-height: 44px;
+  }
+  .source-entry__pages li { margin: 0; }
+  .source-entry__pages a { display: inline-block; padding: 10px 0; }   /* a 44px target that stays even when a title wraps */
+}
+/* === end of wave B3 === */
+
+/* === fix round 2, part A === */
+/* Fix round 2, part A (ceo-xm T-046): the round-2 design review's fixes that need no decision from XM, and QA round 2's
+   one Minor. Same rules as section 20: brand tokens only; magenta only for the H1, key figures and one primary button
+   per view (D4); plum for H2s, links and rules; no coloured left border except "This is for you if…".
+
+    F1 Measure (P2.2)                    F5 Phone disclosures (P1.3)        F9  Review chips (P1.5)
+    F2 Audience heroes (P1.2)            F6 Compact service cards (P1.3)    F10 Review hub (P1.5)
+    F3 Stories: the words first (P2.8)   F7 Phone breadcrumb (P2.9)         F11 Path starts on phones (P1.6)
+    F4 Routes and notes (P1.1, P1.4)     F8 Menus and type (P3.1, P3.12)                                        */
+
+/* F1 Measure: about 65-70 characters a line on the long text blocks (design review P2.2); cards stay full width. */
+.crcrm, .section__intro, .card--lead .card__text, .work-with__contract, .hero__for, .path-for { max-width: 36em; }
+
+/* F2 Audience heroes (P1.2): the photo at 16:9, as Home; under the buttons, one "Start with" line that names and links
+   the lead offer (and on Founders the terms line with its SM6 note), then who the door is for. */
+.hero--audience .hero__media img { aspect-ratio: 16 / 9; }
+.hero__start { margin: 20px 0 0; font-size: 17px; line-height: 26px; }
+.hero__start a { font-weight: 700; }
+.hero__terms { margin: 6px 0 0; font-size: 18px; line-height: 26px; }
+.hero--audience .hero__for { margin: 16px 0 0; }
+
+/* F3 Stories (P2.8, P2.3): kicker, title, the customer's or funder's words as the card's anchor, then the facts; a
+   registry line in a story is its own "On the record" row. */
+.story__quote { margin: 0 0 16px; padding: 0; color: var(--ink); font-size: 20px; line-height: 30px; }
+.story__quote p { margin: 0; }
+.story__body > :last-child { margin-bottom: 0; }
+.story__facts dt { font-size: 14px; line-height: 20px; }                      /* P3.1: story labels 15 → 14 */
+.story__title, .story--full .story__title { font-size: 20px; line-height: 26px; }   /* P3.1: 22 → 20 */
+.outcome__more .story + .story { margin-top: -12px; }                          /* two stories under one heading */
+
+/* F4 Routes, anchored sections and next-step notes (P1.1, P1.4) */
+.route { margin: 0 0 24px; padding: 20px 24px; background: var(--tint); border-radius: var(--radius); }
+.route > :last-child { margin-bottom: 0; }
+.route__title { margin: 0 0 8px; font-size: 20px; line-height: 26px; }
+.route__action { margin: 12px 0 0; }
+.outcome__more h2 + .route { margin-top: -4px; }
+.section--tint .route { background: #fff; border: 1px solid var(--card-line); }
+.next-step__note { margin: -4px 0 12px; color: var(--pewter); font-size: 14px; line-height: 20px; }
+.outcome__more .tiles { margin: 0 0 20px; }
+
+/* F5 Phone-only disclosures (P1.3), reusing the [data-disclosure] pattern: below 600px a story's body folds behind
+   "Read the story" and "Not what you need?" folds into one line; from 600px, and without JavaScript, everything shows.
+   site.v4.js keeps the heading's own text (.disclosure__label) and adds the button beside it. */
+.js [data-disclosure-below] > .disclosure__btn { display: none; }
+.story__toggle { display: none; margin: 0; }
+.story__toggle .disclosure__btn {
+  width: auto; min-height: 44px; padding: 8px 0; gap: 10px; justify-content: flex-start;
+  font-size: 17px; line-height: 24px;
+}
+.story__toggle .disclosure__icon { width: 14px; height: 14px; }
+.story__toggle .disclosure__icon::before, .story__toggle .disclosure__icon::after { top: 6px; width: 14px; height: 2px; }
+@media (max-width: 599px) {
+  .js [data-disclosure-below] > .disclosure__btn { display: flex; }
+  .js [data-disclosure-below] > .disclosure__label { display: none; }
+  .js .story__toggle { display: block; }
+  .js .story__toggle + .story__body { padding-top: 12px; border-top: 1px solid var(--card-line); }
+  .story__quote { font-size: 17px; line-height: 26px; }
+  .story, .story--full { padding: 18px 16px 12px; }
+  .story-list, .story-layout { gap: 12px; }
+  .outcome__more .story, .outcome__more .story--full { margin-bottom: 28px; }
+  .wrong-path { padding-top: 8px; }
+  .wrong-path__title .disclosure__btn { min-height: 48px; padding: 10px 0; }
+  .wrong-path__body { padding-top: 8px; }
+}
+
+/* F6 Compact service cards below 600px (P1.3): the title and one line, the arrow beside the title, as the Home doors. */
+@media (max-width: 599px) {
+  .cards--services { gap: 8px; }
+  .cards--services .card__body {
+    display: grid; grid-template-columns: minmax(0, 1fr) 20px; column-gap: 12px; align-items: center; padding: 12px 14px;
+  }
+  .cards--services .card__body > * { grid-column: 1; }
+  .cards--services a.card .card__body::after { grid-column: 2; grid-row: 1 / span 3; align-self: center; width: 20px; height: 20px; margin: 0; }
+  .cards--services .card__eyebrow { margin: 0 0 2px; }
+  .cards--services .card__title { margin: 0; font-size: 17px; line-height: 22px; }
+  .cards--services .card__text {
+    display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; overflow: hidden;
+    margin: 2px 0 0; color: var(--pewter); font-size: 14px; line-height: 20px;
+  }
+  .cards--services .card--lead .card__body { padding: 14px 16px; }
+  .cards--services .card--lead .card__title { font-size: 20px; line-height: 26px; }
+  .cards--services .card--lead .card__text { -webkit-line-clamp: 2; font-size: 14px; line-height: 20px; }
+}
+
+/* F7 Phone breadcrumb (P2.9): below 600px only the parent shows, as a back link. */
+@media (max-width: 599px) {
+  .breadcrumb__list li { display: none; }
+  .breadcrumb__list li:nth-last-child(2) { display: block; }
+  .breadcrumb__list li:nth-last-child(2)::after { content: none; }
+  .breadcrumb__list li:nth-last-child(2) a::before {
+    content: ""; flex: none; display: inline-block; width: 7px; height: 7px; margin-right: 4px;
+    border-left: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg);
+  }
+}
+
+/* F8 Menus and type: the first item of each door menu, the door's lead offer, in bold (P3.12); the review's named
+   type-scale steps (P3.1, partly): hero "For" line 16 → 17, section intros 18 → 17, statements 28 → 24, sub-heads
+   and rung-card titles 22 → 24 and 20. */
+.vb-menu--door .vb-menu__list li:first-child .vb-menu__link { font-weight: 700; }
+.hero__for { font-size: 17px; line-height: 26px; }
+.section__intro { font-size: 17px; line-height: 27px; }
+.statement { font-size: 24px; line-height: 32px; }
+.subhead { font-size: 24px; line-height: 30px; }
+.section--tyrian .rung-card .rung-card__title { font-size: 20px; line-height: 26px; }
+@media (max-width: 767px) {
+  .statement { font-size: 20px; line-height: 28px; }
+}
+
+/* F9 Review chips (P1.5): with review notes on, every story and story teaser shows its publication status
+   (data-status, which the build mirrors from data-publish). Review tools only, in the review colour. */
+html.review-on .story[data-status]::before, html.review-on .card[data-status]::before {
+  display: inline-block; align-self: flex-start; margin: 0 0 10px; padding: 2px 8px; border: 1px solid var(--review);
+  border-radius: 4px; background: var(--review); color: #fff; font: 700 12px/18px Arial, sans-serif; letter-spacing: .02em;
+}
+html.review-on .card[data-status]::before { margin: 12px 20px 0; }
+html.review-on .story[data-status="ready"]::before, html.review-on .card[data-status="ready"]::before { content: "Ready"; }
+html.review-on .story[data-status="needs-approval"]::before, html.review-on .card[data-status="needs-approval"]::before {
+  content: "Needs approval"; background: #fff; color: var(--review);
+}
+html.review-on .story[data-status="hold"]::before, html.review-on .card[data-status="hold"]::before {
+  content: "On hold"; background: #FFF4E5; border-color: #8A4B00; color: #8A4B00;
+}
+html.review-on .story[data-status="placeholder"]::before { content: "Story to come"; background: #fff; border-style: dashed; border-color: var(--pewter); color: var(--pewter); }
+html.review-on .team-slot[data-status="placeholder"]::before { content: "Profiles to come"; }
+/* T-070 (27 Sep 2026): a card flagged on its grid cell (data-publish="needs-confirmation" on the <li>, so a production
+   build drops the whole cell, not just the link; BeefTwin's masterclass card) shows the same chip as a flagged card. */
+html.review-on .cards > li[data-status="needs-confirmation"] > .card::before {
+  content: "Needs confirmation"; display: inline-block; align-self: flex-start; margin: 12px 20px 0; padding: 2px 8px;
+  border: 1px solid var(--review); border-radius: 4px; background: #fff; color: var(--review);
+  font: 700 12px/18px Arial, sans-serif; letter-spacing: .02em;
+}
+
+/* F10 Review hub (P1.5): the chips' legend, the decision tables' sub-headings */
+.hub-subtitle { margin: 28px 0 8px; font-size: 22px; line-height: 28px; }
+.hub-legend { max-width: 980px; margin: 16px 0 0; font-size: 15px; line-height: 24px; }
+.hub-chip { display: inline-block; padding: 1px 8px; border: 1px solid var(--review); border-radius: 4px; font: 700 12px/18px Arial, sans-serif; }
+.hub-chip--ready { background: var(--review); color: #fff; }
+.hub-chip--needs-approval { background: #fff; color: var(--review); }
+.hub-chip--hold { background: #FFF4E5; border-color: #8A4B00; color: #8A4B00; }
+.hub-chip--placeholder { background: #fff; border-style: dashed; border-color: var(--pewter); color: var(--pewter); }
+.hub-table--decisions tbody th { min-width: 200px; }
+
+/* F11 Path starts on phones (P1.6): the first answer at or above y 700 at 375 x 812 on all four start pages. The
+   "For" line is twelve words or fewer, and below 600px it is hidden; the start page H1 (the door's tagline, P3.4) and
+   the question are one step smaller, and the section starts a little higher. */
+@media (max-width: 599px) {
+  .section--path { padding-top: 28px; }
+  .path-page h1 { font-size: 28px; line-height: 34px; }
+  .path-page .question__text { font-size: 24px; line-height: 30px; }
+  .path-page .path-for { display: none; }
+}
+/* === end of fix round 2, part A === */
+
+/* === fix round 2, part B === */
+/* Fix round 2, part B (ceo-xm T-046; XM's four directions of 25 Sep 2026, and the design review's X1-X9 applied as the
+   recommended defaults). Same rules as section 20: brand tokens only; magenta only for the H1, key figures and one
+   primary button per view (D4; the bar's Apply is outlined everywhere, X2); plum for H2s, links and rules.
+
+    F12 The bar: two-line labels          F15 Impact stories: an index (X8)      F18 News and events
+    F13 The award photo beside its tile   F16 Track-record lists and the panel   F19 Figures and sources (X6)
+    F14 Home: Impact, three stories (X4)                                                                          */
+
+/* F12 The bar. Part B (XM, 25 Sep 2026) set each audience item's full door name in two fixed lines, and T-055 moved the
+   full bar to 1366px to fit the VB mark. v4 (T-099; XM, 30 Sep 2026: "the menus are way too long in wording"; build
+   spec docs/review/2026.09.30.nav.alternatives.html, 10.6) retires the two lines: five short labels, each one line
+   (span.vb-bar__label holds the words; there are no line spans any more), 16/20px with 13px side padding and an 8px
+   caret gap, and the full bar is back from 1280px (D10), where it fits with room to spare before the VB mark. Each link
+   still stretches the full 72px row (align-items: stretch, section 20.1). Below 1280px the Menu's rows use the same
+   short labels, one line each. Keep BAR_FULL in site.v4.js equal to this breakpoint. */
+.vb-bar__label { display: inline; white-space: nowrap; }
+@media (min-width: 1280px) { /* bar breakpoint */
+  .vb-bar__link { padding: 0 13px; font-size: 16px; line-height: 20px; }
+  .vb-bar__btn { gap: 8px; }
+  .vb-bar__logo { margin-right: 14px; }
+  .vb-bar__apply { margin-left: 14px; padding: 10px 18px; font-size: 16px; line-height: 20px; }
+}
+
+/* F13 X5: the award photo moves from the hero to beside the award tile, as documentary evidence with its consent note.
+   The tiles sit in two columns on the left; with an odd number of tiles the award (last) spans both, beside the photo. */
+.award-split { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 24px 32px; align-items: start; }
+.award-split .stats { align-content: start; }
+.award-split .stats > .stat--award:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.award-photo { margin: 0; }
+.award-photo img { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius); }
+.award-photo__caption { margin: 8px 0 0; color: var(--pewter); font-size: 14px; line-height: 20px; }
+.outcome__more .timeline { margin-bottom: 40px; }        /* the Thailand timeline, moved into #16 (X1): room before the next heading */
+@media (max-width: 1023px) {
+  .award-split { grid-template-columns: minmax(0, 1fr); }
+  .award-photo { max-width: 560px; }
+}
+
+/* F14 X4: Home's Impact section, three featured stories in the customer's own words, each linking to its service; and
+   the one-line next event under the keynote offer. */
+.featured { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: stretch; }
+.featured > li { margin: 0; }
+.story--feature { display: flex; flex-direction: column; height: 100%; }
+.story--feature .story__quote { margin-bottom: 16px; font-size: 18px; line-height: 28px; }
+.story--feature .story__more { margin: auto 0 0; padding-top: 12px; border-top: 1px solid var(--card-line); }
+.rung__next { margin: 16px 0 0; font-size: 16px; line-height: 24px; }
+@media (max-width: 1023px) {
+  .featured { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+}
+
+/* F15 X8: Impact stories as an index. Each card shows the service (kicker), the headline, the customer's words and who;
+   "Read the full story" is a disclosure at every width (without JavaScript the whole story shows); the service link
+   stays in view. */
+.story--index { display: flex; flex-direction: column; padding: 22px 24px 20px; }
+.story--index .story__title { margin: 0 0 10px; }
+.story--index .story__quote { margin: 0 0 12px; font-size: 18px; line-height: 28px; }
+.story--index .story__who { margin: 0 0 4px; font-size: 16px; line-height: 24px; }
+.js .story--index .story__toggle { display: block; margin: 4px 0 0; }
+.js .story--index .story__toggle + .story__body { margin-top: 4px; padding-top: 14px; border-top: 1px solid var(--card-line); }
+.story--index .story__body { margin-bottom: 4px; }
+.story--index .story__more { margin: 8px 0 0; padding-top: 12px; border-top: 1px solid var(--card-line); }
+@media (max-width: 599px) {
+  .story--index { padding: 18px 16px 14px; }
+  .story--index .story__quote { font-size: 17px; line-height: 26px; }
+}
+
+/* F16 The track-record lists (XM: all keynotes, all grants, all publications), rendered by the build from
+   mockup-src.v4/data, and the marked panel shown until verified data is in place. */
+.list-pending { max-width: 760px; margin: 8px 0 0; padding: 22px 24px; border: 2px dashed var(--line); border-radius: var(--radius); background: #fff; }
+.list-pending__title { margin: 0 0 6px; color: var(--plum); font-size: 20px; line-height: 26px; font-weight: 700; }
+.list-pending__text { margin: 0; color: var(--pewter); }
+.talks__intro { max-width: 36em; }
+.outcome__more .list-pending, .outcome__more .track-list { margin-bottom: 36px; }
+/* F16a Era groups (fix round 2, part C, T-051): "Since CBIT was founded", "Before CBIT: …" and, only where a
+   boundary item exists, the smaller, quieter "To confirm" group — one shared heading class for all three lists
+   (keynotes, grants, publications), replacing the grants-only .grants__era of round 2 part B. F4 (T-054 fix
+   round): on Grants, "Before CBIT" and "To confirm" fold on phones (build-mockups.v4.mjs wraps each group's
+   intro line and list in one div.track-list__era-body, so site.v4.js's [data-disclosure] — the heading's next
+   sibling is the panel — folds both together); "Since CBIT" is never folded. .track-list__era-body carries no
+   box of its own, only what the disclosure component needs (display: block is the default for a div). */
+.talks__year, .pubs__year { margin: 28px 0 8px; font-size: 20px; line-height: 26px; }
+.track-list__era { margin: 32px 0 12px; font-size: 22px; line-height: 28px; }
+.track-list__era-intro { max-width: 44em; margin: 0 0 16px; color: var(--pewter); }
+.track-list__era-body { margin: 0; }
+.track-list__era--confirm { padding-top: 20px; border-top: 2px dashed var(--line); font-size: 20px; color: var(--pewter); }
+.track-list > :first-child { margin-top: 8px; }
+.talks__list, .pub-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--card-line); }
+.talk { display: grid; grid-template-columns: 116px minmax(0, 1fr); column-gap: 16px; margin: 0; padding: 10px 0; border-bottom: 1px solid var(--card-line); }
+.talk__when { grid-column: 1; grid-row: 1 / span 2; margin: 0; color: var(--pewter); font-size: 14px; line-height: 22px; }
+.talk__title { grid-column: 2; margin: 0; font-weight: 700; }
+.talk__meta { grid-column: 2; margin: 2px 0 0; color: var(--pewter); font-size: 15px; line-height: 22px; }
+.tag--era { margin-left: 2px; }
+.grant-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.grant { margin: 0; padding: 18px 20px; background: #fff; border: 1px solid var(--card-line); border-radius: var(--radius); }
+.grant__title { margin: 0 0 6px; font-size: 18px; line-height: 24px; }
+.grant__meta { margin: 0; font-size: 15px; line-height: 22px; }
+.grant__value { color: var(--plum); font-weight: 700; }
+.grant__record { margin: 8px 0 0; font-size: 15px; line-height: 22px; }
+.pub-list { max-width: 960px; }
+.pub { margin: 0; padding: 12px 0; border-bottom: 1px solid var(--card-line); }
+.pub__cite { margin: 0; }
+.pub__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin: 6px 0 0; font-size: 15px; line-height: 22px; }
+.tag--abs { border-color: var(--plum); color: var(--plum); font-weight: 700; }
+/* Top improvement 3 (T-054 fix round): a keynote's or publication's own type (keynote, masterclass, panel,
+   lecture; journal, conference, report) shows as a small tag, class="tag tag--type" — the base .tag style
+   (AA on white, 7.11:1) is enough, so .tag--type carries no rule of its own, same as it reads as a sibling of
+   .tag--abs and .tag--era, not a fourth colour in the list. Publications: replaces the plain trailing text
+   span.pub__type (removed) so the type reads as a tag next to the ABS tag, not prose. */
+
+/* F16b Needs-confirmation chip (fix round 2, part C, T-051): a flagged talk, grant or publication shows the same
+   review-mode chip a story does (F9), in the same review colour; there is only one flagged state for a list
+   item (unlike a story's four), so content is fixed rather than keyed by value. Review tools only, never in
+   production — the guard leaves a flagged item out before this markup would exist there (build-mockups.v4.mjs,
+   renderList). .talk is a two-column grid the rest of the time; in review mode a flagged one switches to block
+   layout so the chip and its columns do not overlap. .grant and .pub are plain boxes, so the chip just stacks. */
+html.review-on .talk[data-status="needs-confirmation"]::before,
+html.review-on .grant[data-status="needs-confirmation"]::before,
+html.review-on .pub[data-status="needs-confirmation"]::before {
+  content: "Needs confirmation"; display: inline-block; margin: 0 0 8px; padding: 2px 8px; border: 1px solid var(--review);
+  border-radius: 4px; background: #fff; color: var(--review); font: 700 12px/18px Arial, sans-serif; letter-spacing: .02em;
+}
+html.review-on .talk[data-status="needs-confirmation"] { display: block; }
+@media (max-width: 767px) {
+  .grant-list { grid-template-columns: minmax(0, 1fr); }
+  .grant__record a, .pub__meta a, .talk__title a { display: inline-flex; align-items: center; min-height: 44px; }
+}
+@media (max-width: 599px) {
+  .talk { grid-template-columns: minmax(0, 1fr); }
+  .talk__when { grid-row: auto; }
+  .list-pending { padding: 18px 16px; }
+}
+
+/* F18 News and events (XM: one page, upcoming events first, then news, then the archive). */
+.events { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 24px; align-items: stretch; }
+.events .event { max-width: none; }
+.event-card { padding: 24px; border: 1px solid var(--card-line); border-radius: var(--radius); background: var(--tint); }
+.event-card__label { margin: 0 0 8px; color: var(--pewter); font-size: 14px; line-height: 20px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.event-card__title { margin: 0 0 8px; font-size: 20px; line-height: 26px; }
+.event-card p { margin-top: 0; }
+.event-card__links { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 12px 0 0; }
+.news-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; align-items: stretch; }
+.news-list > li { margin: 0; }
+.news-entry { display: flex; flex-direction: column; height: 100%; padding: 22px 24px; background: #fff; border: 1px solid var(--card-line); border-radius: var(--radius); }
+.news-entry__date { margin: 0 0 6px; color: var(--pewter); font-size: 14px; line-height: 20px; font-weight: 700; }
+.news-entry__title { margin: 0 0 8px; font-size: 20px; line-height: 26px; }
+.news-entry > p { margin-top: 0; }
+.news-entry__more { margin: auto 0 0; padding-top: 4px; }
+@media (max-width: 1023px) {
+  .events, .news-list { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 767px) {
+  .event-card__links a, .news-entry__more a { display: inline-flex; align-items: center; min-height: 44px; }
+}
+
+/* F19 X6: Figures and sources shows each figure's wording, period and a source a buyer can recognise, linked where there
+   is public evidence; the registry's id and internal status move into review notes. */
+.source-entry__era {
+  margin: 0 0 8px; color: var(--pewter); font-size: 13px; line-height: 18px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+}
+.source-entry__source a { font-weight: 700; }
+.source-line a { white-space: nowrap; }           /* "Figures and sources →" never leaves its arrow alone on a line */
+/* === end of fix round 2, part B === */
+
+/* === T-052 team and partners === */
+/* T-052 (ceo-xm; the team-and-partners brief, 25 Sep 2026): About: People rebuilt as Team and partners
+   (mockup-src.v4/pages/about.people.html; data from prepare-people.v4.mjs). Same brand tokens as every other
+   block in this file: plum and magenta only, no near-black backgrounds. No photos on these cards — initials
+   only (brief "Core team": "initials, not a photo") — and no logos on the key-partner tiles (logo approval
+   pending, sitewide). Review-mode chips reuse F9/F16b's own visual language, extended to seven distinct
+   labels instead of one fixed string, since a person or partner can be flagged for any of seven different
+   reasons (the brief's "Flag chips") — XM clears each one by its own label, at a glance.
+
+    U1 Person cards (Core team, Advisory board and start-up advisors, Associate members)
+    U2 Key partners, grouped by type
+    U3 Flag chips (seven distinct labels; review tools only, never in production)                        */
+
+/* U1 div.people-groups wraps two or more h3-headed groups (Advisory board / Start-up advisors); a flat
+   ul.people-grid is used where a section has only one group (Core team, Associate members). li.person never
+   lifts or links as a whole — its own "Full profile" link does that — so it keeps the static card treatment
+   (theme v3 rule: only a linked card lifts and carries the arrow). */
+.people-group__title { margin: 40px 0 16px; font-size: 22px; line-height: 28px; }
+.people-groups > :first-child { margin-top: 0; }
+.people-grid { list-style: none; margin: 16px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.people-grid--associates { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.person { margin: 0; padding: 20px; background: #fff; border: 1px solid var(--card-line); border-radius: var(--radius); }
+.person__row { display: flex; gap: 16px; align-items: flex-start; }
+.person__avatar {
+  flex: none; display: flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 50%;
+  background: var(--plum); color: #fff; font-size: 16px; font-weight: 700; letter-spacing: .02em; overflow: hidden;
+}
+/* T-056: a mapped deck photo (240x240 on disk), shown at the avatar's own size, circular, never stretched. */
+.person__avatar img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.person__body { min-width: 0; }
+.person__name { margin: 0; font-size: 18px; line-height: 24px; }
+.person__role { margin: 2px 0 0; color: var(--plum); font-size: 14px; line-height: 20px; font-weight: 700; }
+.person__title { margin: 4px 0 0; color: var(--pewter); font-size: 14px; line-height: 20px; }
+.person__bio { margin: 10px 0 0; font-size: 15px; line-height: 23px; }
+.person__link { margin: 10px 0 0; font-size: 14px; line-height: 20px; }
+@media (max-width: 767px) {
+  .people-grid, .people-grid--associates { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* U2 Sister centres (brief 10a: name, country, one public line; unchanged, no logo). */
+.partner-list { list-style: none; margin: 16px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.partner { margin: 0; padding: 16px 18px; background: #fff; border: 1px solid var(--card-line); border-radius: var(--radius); }
+.partner__name { margin: 0; font-size: 16px; line-height: 22px; }
+.partner__country { margin: 2px 0 0; color: var(--pewter); font-size: 13px; line-height: 18px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+.partner__relationship { margin: 8px 0 0; font-size: 15px; line-height: 22px; }
+@media (max-width: 1023px) {
+  .partner-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 599px) {
+  .partner-list { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* U2b (T-058) Who funds our work / Who we work with: a logo splash, reusing the existing .logo-wall system
+   (the same one the Home ventures wall and the unused tools wall use) — a white tile of one consistent size
+   per item, the logo scaled
+   proportionally within it (object-fit: contain), never stretched, skewed or cropped, in a responsive grid.
+   .people-groups .logo-wall only adds the same top margin partner-list already has, so both group styles in
+   this section sit the same distance below their own <h3>; every other rule (tile size, borders, the column
+   counts at each width) is .logo-wall's own, unchanged. .logo-wall__text is new: the same-size text tile
+   that stands in for a partner with no logo in the deck (brief: "show a same-size text tile with its
+   name"), centred in the same box a logo would fill. */
+.people-groups .logo-wall { margin-top: 16px; }
+.logo-wall__text { padding: 0 6px; text-align: center; font-size: 13px; line-height: 18px; font-weight: 700; color: var(--pewter); }
+
+/* U3 Flag chips: a flagged person or partner carries a second attribute, data-flag, which this block keys
+   to the chip's own text — unlike a track-record item (F16b, one fixed string for its one flagged state), a
+   person or partner can be flagged for any of the brief's seven distinct reasons, plus an eighth (T-057,
+   "review" — see below). content is fixed per value, same technique as F9 and F16b. Review tools only
+   (html.review-on), never in production: for seven of the eight kinds the flagged card is left out of the
+   HTML entirely there (data-publish="needs-confirmation", build-mockups.v4.mjs), so no selector below ever
+   matches a production build for them. .person and .partner are block-level (not flex), so the chip (a
+   block pseudo-element) stacks cleanly above the card's own content without any layout override. */
+html.review-on [data-flag]::before {
+  content: ""; display: inline-block; margin: 0 0 10px; padding: 2px 8px; border: 1px solid var(--review);
+  border-radius: 4px; background: #fff; color: var(--review); font: 700 12px/18px Arial, sans-serif; letter-spacing: .02em;
+}
+html.review-on [data-flag="current"]::before { content: "Confirm still current"; }
+html.review-on [data-flag="consent"]::before { content: "Needs consent"; }
+html.review-on [data-flag="approval"]::before { content: "Needs approval"; }
+html.review-on [data-flag="credit"]::before { content: "Needs credit line"; }
+html.review-on [data-flag="nametitle"]::before { content: "Name or title to confirm"; }
+html.review-on [data-flag="status"]::before { content: "Status to confirm"; }
+html.review-on [data-flag="hold"]::before { content: "Hold"; background: #FFF4E5; border-color: #8A4B00; color: #8A4B00; }
+/* T-057 (XM, 25 Sep 2026): informational only — this is the one data-flag value with no data-publish, so it
+   is the one chip that still appears with no other visible effect on a --production build (until this note
+   and the attribute carrying it are stripped there too). Given a plum tint, not the review blue, so it
+   reads as "for information", not "blocks going live" like the seven above. */
+html.review-on [data-flag="review"]::before { content: "Georgi to review"; background: var(--tint); border-color: var(--plum); color: var(--plum); }
+/* === end of T-052 team and partners === */
+
+/* === T-055 VB logo in the bar === */
+/* T-055 (XM, 25 Sep 2026; amends brief section 10 — 2026.09.25.brief.vb.logo.bar.md): the CBIT Venture Builder
+   mark, beside Apply. Asset: assets/img/logos/vb-logo-white.png, 258x64 (2x the largest size shown below),
+   proportional from the source, never recoloured/stretched/cropped. The official CBIT lockup stays the only
+   logo before the sections (.vb-bar__logo, untouched); the two are never set together as one lockup.
+
+   Guard (build-mockups.v4.mjs): vb-logo-white.png may appear only inside the bar and its menu panel — exactly
+   the two places below. Two copies of the one asset share that markup, never both visible at once:
+     .vb-bar__vb          in the bar's own row, beside Apply — the full bar, and the grid row down to 1024px,
+                           where it still fits beside the CBIT logo, Menu and Apply without crowding them.
+     .vb-bar__vb--panel   the first thing inside the opened Menu panel — phone widths (1023px and below), where
+                           the row has no room left for it (brief: "never let it push the bar into two rows").
+   Both link to the CBIT Venture Builder programme page (svc-venture-builder) and share one accessible name,
+   "CBIT Venture Builder programme", which contains the mark's own visible words (WCAG 2.5.3). alt="" on the
+   image itself, same pattern as .vb-bar__logo: the link's aria-label is the one accessible name, so the image
+   is not announced twice. Neither declares its own :focus-visible rule: both inherit .vb-bar's --focus: #fff,
+   the same default outline .vb-bar__logo relies on.
+
+   The row copy needed more room than the full bar had (measured, headless Chromium): with it, the mark and
+   Apply started overlapping the last section at about 1327px, so BAR_FULL rose from 1250 to 1366 (site.v4.js,
+   and every other rule marked "bar breakpoint") rather than shrinking the mark below the brief's 28-32px. The
+   media queries just below share that 1366/1365 threshold for the same reason, but are new rules of their
+   own, not an edit to an existing bar-breakpoint one.
+
+   v4 (T-099, spec 10.6): with five short labels the full bar fits from 1280px again, so both queries below read
+   1280/1279 (D10). The VB mark also stays in the row down to 600px (26px from 600 to 1023px), and below 600px the
+   panel copy closes the opened Menu instead of heading it (it now sits after the list in vb-bar.html): both are
+   in the block "=== T-099 the new navigation bar (v4) ===" at the end of the file, after the rules they refine. */
+.vb-bar__vb { display: flex; flex: none; align-items: center; }
+.vb-bar__vb img { display: block; width: auto; height: 30px; }
+
+@media (min-width: 1280px) { /* the full bar: in the flex row, immediately left of Apply */
+  /* 10px here + Apply's own 14px margin-left (F12, untouched) = 24px clear of Apply: about the height of the
+     mark's own "B", not the padding in its canvas (982px of the source's 1218px height is glyph; 30px * that
+     ratio is about 24px). */
+  .vb-bar__vb { order: 1; margin: 0 10px 0 20px; }
+  .vb-bar__apply { order: 2; }
+  .vb-bar__vb--panel { display: none; }
+}
+
+@media (max-width: 1279px) { /* the Menu grid row: a fourth column, between Menu and Apply */
+  .vb-bar__vb--panel { display: none; } /* shown instead, below, once the row has no room left (1023px) */
+  .vb-bar__inner { grid-template-columns: minmax(0, 1fr) auto auto auto; grid-template-areas: "logo menu vb apply" "nav nav nav nav"; }
+  .vb-bar__vb { grid-area: vb; margin: 0 4px; }
+}
+
+@media (max-width: 1023px) { /* phone: out of the row (D10's "never two rows"), into the top of the opened panel */
+  .vb-bar__inner { grid-template-columns: minmax(0, 1fr) auto auto; grid-template-areas: "logo menu apply" "nav nav nav"; }
+  .vb-bar__vb { display: none; }
+  .vb-bar__vb--panel { display: flex; margin: 14px var(--gutter) 4px; }
+  .vb-bar__vb--panel img { height: 32px; }
+}
+/* === end of T-055 VB logo in the bar === */
+
+/* === T-065 === */
+/* T-065, the AI edition (ceo-xm task T-065; brief 2026.09.27.brief.site.ai.edition.md), for Home's recognition
+   and About: How we work's two AI-native definitions. */
+
+/* Home: recognition, three items (T-071, XM, 27 Sep 2026: "recognition should have 3" — replaces the single
+   centred .recognition-strip line from T-065/T-069; that class is now unused by any page and is removed here,
+   not left as dead code). Text only, no logos (XM); three boxes side by side from 600px — the same breakpoint
+   the sitewide .stats grid uses for its own collapse to one column — stacked below it. Not a stat (no figure),
+   so no card background or border: plain text on the section's own tint band, .eyebrow above each item for the
+   existing sitewide label look (no new rule needed for it). */
+.recognition-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+.recognition-item__text { margin: 4px 0 0; font-size: 16px; line-height: 24px; color: var(--ink); }
+.recognition-item__text a { color: var(--plum); }
+@media (max-width: 599px) {
+  .recognition-grid { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+}
+
+/* About: How we work — AI-native, defined (v3 2b). Two cards, one column until 1024px, then side by side;
+   same card shape as the sitewide .card (white, 1px --card-line, radius var(--radius)) but never a link, so
+   no arrow and no hover lift (same reasoning as .stat/.tile, brief section 9). */
+.ai-native-defs { display: grid; grid-template-columns: 1fr; gap: 24px; margin-top: 8px; }
+@media (min-width: 1024px) {
+  .ai-native-defs { grid-template-columns: 1fr 1fr; gap: 32px; }
+}
+.ai-native-def {
+  background: #fff; border: 1px solid var(--card-line); border-radius: var(--radius); padding: 28px;
+}
+.ai-native-def h3 { margin-top: 0; }
+.ai-native-def__one { font-weight: 700; color: var(--plum); }
+.ai-native-def dl { margin: 16px 0 0; }
+.ai-native-def dt { font-weight: 700; color: var(--plum); margin-top: 12px; }
+.ai-native-def dt:first-child { margin-top: 0; }
+.ai-native-def dd { margin: 4px 0 0; }
+.ai-native-def__test, .ai-native-def__not { font-size: 14px; line-height: 20px; color: var(--pewter); margin-top: 16px; }
+.ai-native-def__test strong, .ai-native-def__not strong { color: var(--ink); }
+
+/* T-068 fix M1 (QA T-067): the AI2 review badge (over the intro paragraph, data-review-n 2) rendered pinned
+   over the logo instead of scrolling with its paragraph — reproducible only intermittently (not on every
+   load), consistent with a one-off stale-layout race between this band's first paint and a later reflow (the
+   band sits right at a section boundary, the first thing after the hero, exactly where site.v4.js's
+   ResizeObserver(document.body) is least likely to see a net height change to re-trigger placeBadges()).
+   contain: layout scopes this band's box to its own content, so a later reflow inside it (for example a
+   webfont swap changing the intro paragraph's line count) can no longer resolve independently of the
+   browser's layout timing for the rest of the page — closing the specific "stale layout" window the badge
+   script depends on, without changing the band's own rendering (confirmed: no visual difference at 1440 or
+   375, and every badge on this page, not only badge 2, still tracks its own paragraph after this change). */
+.ai-native-band { contain: layout; }
+
+/* T-069, "Achievements lead" (XM, 27 Sep 2026). Home's hero: a full-width photo, darkened by a left-to-right
+   gradient so the H1 and affiliation line (both plain white here) pass WCAG AA wherever they sit. Measured
+   against thai-ai-conference-2025.jpg (PowerShell/System.Drawing, the WCAG relative-luminance formula): the
+   gradient's strongest stop (o=0.65, the left/text side) gives white text about 13.6:1 against the photo's own
+   region average, and about 7.0:1 even at the single brightest sampled pixel in that region (a light or
+   screen) — both clear AA's 4.5:1 for normal text with a wide margin. The stat tiles keep their normal white
+   card look (.stat's own background), so their magenta/plum figures are never read against the photo at all
+   and need no override; a check of magenta directly on the darkened photo (about 2.4:1) confirmed that
+   mattered only if the tiles were made transparent, which they are not. */
+.hero--achieve { position: relative; overflow: hidden; padding: 0; background: #1a1a1a; border-bottom: 0; min-height: 460px; }
+.hero--achieve__media { position: absolute; inset: 0; z-index: 0; }
+.hero--achieve__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero--achieve__media::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(100deg, rgba(8,6,12,.78) 0%, rgba(8,6,12,.65) 42%, rgba(8,6,12,.38) 100%);
+}
+/* CEO check fix (T-069): .hero--achieve__inner carries both "wrap" (the standard column: max-width var(--wrap),
+   centred, padding 0 var(--gutter)) and its own class for vertical spacing. The vertical rule below first read
+   "padding: 56px 0 40px" — that shorthand sets all four sides, so it silently zeroed the left/right padding
+   .wrap had just set, pulling the hero's content 20px (var(--gutter)) left of the column at 1440 and removing
+   the phone gutter altogether at 375. Fixed by setting padding-top/padding-bottom only, so .wrap's own
+   padding-left/padding-right stand: the hero now aligns with the bar's logo, the breadcrumb and every section
+   below it, at every width, with the standard column gutter (var(--gutter)) on the 2x2 cards at 375 too. */
+.hero--achieve__inner { position: relative; z-index: 1; padding-top: 56px; padding-bottom: 40px; }
+.hero--achieve__body { max-width: 920px; color: #fff; }
+.hero--achieve h1 { color: #fff; }
+.hero--achieve .hero__affil { color: rgba(255, 255, 255, .86); margin-bottom: 28px; }
+/* CEO fix (T-071, 27 Sep 2026, on r3i.home.1440.png): three defects in the first cut of the five-box grid.
+   (1) It sat inside .hero--achieve__body (max-width 920px: right for a headline, too narrow for five boxes),
+   so on the 1326px column (.wrap's own 1366px max, less its two 20px gutters) the row only used 920px and
+   left the right third empty. Fixed in home.html: the <ul> is now a sibling of .hero--achieve__body, not its
+   child, so the grid's own width is the column's. (2) Column width does not shrink evenly as the viewport
+   narrows — it steps down each time a column drops — and the five-column step is the tightest one on the
+   whole site: at 1280px (five columns, this section's own narrowest case) each column is about 232px, 184px
+   once the tile's own 24px+24px padding is out, tighter than three columns ever get even at 1024px. At the
+   old flat 46px, "£5.5m+" (the widest value) clipped there. clamp() below keeps it to one line at that
+   point, with a little room to spare, and lets it grow slightly on a wider screen without depending on
+   .wrap's own cap (it stops growing on its own once the clamp's ceiling is reached). (3) The labels wrapped
+   five or six lines in the old, wrongly-narrow 168px columns; at the section's true width they run two to
+   four. */
+.hero--achieve__stats {
+  margin: 16px 0 0; padding: 0; list-style: none;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;
+}
+@media (min-width: 1280px) {
+  .hero--achieve__stats { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 20px; }
+  /* Tuned to 1280px, this component's tightest point (five columns, about 184px of text width): 30px keeps
+     "£5.5m+" on one line there with room to spare, so the estimate behind it does not have to be exact. */
+  .hero--achieve__stats .stat__figure { font-size: clamp(30px, 3.1vw, 44px); line-height: 1.15; }
+}
+@media (max-width: 1023px) {
+  /* Tablet (down to 600px; 768px is this tier's own check width): two columns, the fifth box spanning both
+     rather than left alone beside an empty cell (the brief's other approved option, "2+2+1"). */
+  .hero--achieve__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .hero--achieve__stats .stat:last-child { grid-column: 1 / -1; }
+}
+@media (max-width: 599px) {
+  .hero--achieve { min-height: 0; }
+  .hero--achieve__inner { padding-top: 36px; padding-bottom: 28px; }
+  .hero--achieve__stats { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+}
+
+/* Home: the doors, out of the hero (T-069); "Every service, AI-empowered" teaser, before the remaining figures. */
+.ai-teaser__strap { color: var(--plum); font-weight: 700; max-width: 46em; }
+.ai-teaser__points { max-width: 46em; margin: 16px 0 20px; }
+.ai-teaser__more { margin: 0; }
+.hero__more { margin-top: 8px; }
+
+/* About: AI at CBIT — the evidence list, grouped under h3s, each item era-labelled (v3 2c, public copy only). */
+.ai-evidence h3 { margin-top: 32px; }
+.ai-evidence h3:first-child { margin-top: 0; }
+.ai-evidence__list { margin-bottom: 0; }
+.ai-evidence__era {
+  display: inline-block; margin-right: 8px; padding: 1px 8px; border-radius: 4px; vertical-align: 1px;
+  background: var(--tint); color: var(--plum); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em;
+}
+/* === end of T-065 === */
+
+/* === T-064 === */
+/* AI edition (T-064, 27 Sep 2026; brief 2026.09.27.brief.site.ai.edition.md; service map v3, section 4): the
+   component that carries a service's promise, what AI adds, examples and AI-native outcome. One tint panel per
+   service page (occasionally a second, smaller one for a merged service's other route), styled like the
+   sitewide .route (same tint background and radius) but never a link, so no arrow and no hover lift (same
+   reasoning as .tile/.stat, brief section 9). Lists reuse .ticks; era tags reuse .tag.tag--era (both already
+   defined above — no new list or tag styling needed here). Where only the outcome line appears on its own,
+   outside a full panel (a tile's own AI-native line, or the TNDRX section on Government leaders), .ai-edition__outcome
+   is used bare, so it carries its own spacing rather than relying on .ai-edition's. */
+.ai-edition { margin: 0 0 32px; padding: 24px 28px; background: var(--tint); border-radius: var(--radius); }
+.ai-edition > :last-child { margin-bottom: 0; }
+.ai-edition__eyebrow {
+  margin: 0 0 8px; color: var(--plum); font-size: 14px; line-height: 20px; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+}
+.ai-edition__promise { margin: 0 0 16px; font-size: 20px; line-height: 28px; font-weight: 700; color: var(--ink); }
+.ai-edition__note { margin: 0 0 16px; color: var(--pewter); }
+.ai-edition__note cite { font-style: normal; }
+.ai-edition h3 { margin: 20px 0 8px; font-size: 18px; line-height: 24px; }
+.ai-edition h3:first-of-type { margin-top: 0; }
+.ai-adds { margin-bottom: 0; }
+.ai-edition__outcome { margin: 16px 0 0; }
+.ai-edition__outcome:only-child { margin-top: 0; }
+.ai-edition__outcome strong { color: var(--plum); }
+
+/* Review-mode chip (review tools only), reusing F9/F16b's own visual language, scoped to the elements this
+   block can flag with data-publish="needs-confirmation" (AI3: a "What AI adds" item or a promise/outcome line
+   held until a case or a confirmation exists; the recognition statement, held pending the STeP credit line and
+   NTU Global's MoU confirmation, AI10; the outbound Global VB Partnership route, held pending its fuller story).
+   A block rule, not inline, since these sit in running prose rather than beside a title as .story's chip does. */
+html.review-on .ai-adds > li[data-status]::before,
+html.review-on .ai-edition__promise[data-status]::before,
+html.review-on .ai-edition__outcome[data-status]::before,
+html.review-on p.statement[data-status]::before,
+html.review-on .route[data-status]::before {
+  content: "Needs confirmation"; display: block; width: max-content; margin: 0 0 8px; padding: 2px 8px;
+  border: 1px solid var(--review); border-radius: 4px; background: #fff; color: var(--review);
+  font: 700 12px/18px Arial, sans-serif; letter-spacing: .02em;
+}
+/* === end of T-064 === */
+
+/* === T-099 the new navigation bar (v4) === */
+/* T-099 (XM, 30 Sep 2026: option 1 in the plainer, YC-style words; brief .project/briefs/2026.09.30.brief.nav.v4.md;
+   build spec docs/review/2026.09.30.nav.alternatives.html, section 10). The bar: Work with us · Services · Impact ·
+   News and events · About, then the VB mark and Apply, every label on one line (F12). These rules are the working
+   mock's (docs/review/mocks/2026.09.30.nav/css/nav.common.css and nav.option-1.css, measured by the T-098 review),
+   less its toolbar-hiding rule (a mock-only tool), with the panel classes named for their menu types: Work with us is
+   .vb-menu--audiences (.vb-audiences*), Services is .vb-menu--families (.vb-families*), Impact and About are
+   .vb-menu--compact. Same rules as section 20: brand tokens only; magenta only for the H1, key figures and one primary
+   button per view; plum for links, titles and rules. Then the two landing pages (spec 10.8) and the "In Impact" and
+   "In About" lists (the first nav review's 7.8).
+
+    N1 The full bar: compact dropdowns          N4 The VB mark: in the row from 600px, the Menu's foot below
+    N2 Menu mode: every row divided             N5 Landing pages: Work with us and Services
+    N3 The Work with us and Services panels     N6 "In Impact" and "In About"                                    */
+
+/* N1 The full bar, from 1280px (D10). Labels, padding and Apply are in F12; here Impact and About open a short list
+   under their own label (the item is the positioning box), not a full-width sheet: 300px, 1px border, 8px bottom
+   corners, no heading (the label says it). */
+@media (min-width: 1280px) {
+  .vb-bar__item--compact { position: relative; }
+  .vb-menu--compact {
+    left: 0; right: auto; width: 300px;
+    border: 1px solid var(--card-line); border-top: 0; border-radius: 0 0 8px 8px;
+  }
+  .vb-menu--compact .vb-menu__inner { display: block; max-width: none; padding: 6px 20px 10px; }
+  .vb-menu--compact .vb-menu__list { columns: 1; }
+  .vb-menu--compact .vb-menu__list li:last-child .vb-menu__link { border-bottom: 0; }
+}
+
+/* N2 Menu mode (below 1280px): the Home link hugs the lockup; every row has its divider, including the menu buttons
+   (spec 10.5: five divided 48px rows with the same short labels). */
+@media (max-width: 1279px) {
+  .vb-bar__logo { justify-self: start; }
+  .vb-bar__nav .vb-bar__btn { border-bottom: 1px solid rgba(255, 255, 255, .15); }
+  .vb-bar__nav .vb-bar__btn[aria-expanded="true"] { border-bottom-color: transparent; }
+  .vb-menu--compact .vb-menu__inner { padding: 4px 0 8px; }
+}
+
+/* N3 The two big panels (spec 10.4). Work with us: four equal columns, one per audience: the full name (18/24 bold plum,
+   a link with the arrow, two lines reserved, balanced), the tagline (15/22 pewter, two lines reserved), the three
+   featured services (16/22 rows of 44px with dividers), Help me choose and the inbox. Services: the same frame, each
+   family title 14/20 bold plum capitals with .08em tracking and a 2px plum rule beneath, then its services. */
+.vb-audiences, .vb-families { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.vb-audiences__col, .vb-families__col { min-width: 0; }
+.vb-audiences__name { margin: 0 0 6px; font-size: 18px; line-height: 24px; font-weight: 700; text-wrap: balance; }
+.vb-audiences__name .vb-menu__title-link { color: var(--plum); }
+.vb-audiences__tagline { margin: 0 0 8px; color: var(--pewter); font-size: 15px; line-height: 22px; }
+.vb-audiences__list, .vb-audiences__more, .vb-families__list { list-style: none; margin: 0; padding: 0; }
+.vb-audiences__list li, .vb-audiences__more li, .vb-families__list li { margin: 0; }
+.vb-families__title {
+  margin: 0 0 2px; color: var(--plum);
+  font-size: 14px; line-height: 20px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+}
+/* From 1280px: four columns under the bar, with the same thin rules as the Home hero's four results. */
+@media (min-width: 1280px) {
+  .vb-menu--audiences .vb-menu__inner, .vb-menu--families .vb-menu__inner { display: block; padding-top: 28px; padding-bottom: 28px; }
+  .vb-audiences__col, .vb-families__col { padding: 0 28px; border-left: 1px solid var(--card-line); }
+  .vb-audiences__col:first-child, .vb-families__col:first-child { padding-left: 0; border-left: 0; }
+  .vb-audiences__col:last-child, .vb-families__col:last-child { padding-right: 0; }
+  .vb-audiences__name { min-height: 48px; }        /* up to two lines, so the four lists start level */
+  .vb-audiences__tagline { min-height: 44px; }
+  .vb-families__title { padding: 12px 0 10px; border-bottom: 2px solid var(--plum); }
+}
+/* Menu mode: the columns stack, in the accordion's own indents. The three services under each audience are a desktop
+   shortcut only: in the Menu they would repeat Services (the next row) and push the fourth audience below the fold, so
+   each audience shows its name, tagline, Help me choose and inbox, and all four fit about one phone screen. */
+@media (max-width: 1279px) {
+  .vb-audiences__list { display: none; }
+  .vb-audiences__more .vb-menu__link { border-bottom: 0; }
+  .vb-audiences__more .vb-menu__inbox { padding-top: 0; padding-bottom: 8px; }
+  .vb-audiences, .vb-families { display: block; }
+  .vb-audiences__col, .vb-families__col { padding: 10px 0 6px; }
+  .vb-audiences__col + .vb-audiences__col, .vb-families__col + .vb-families__col { border-top: 1px solid var(--card-line); }
+  .vb-audiences__name, .vb-audiences__tagline, .vb-families__title { padding-left: calc(var(--gutter) + 12px); padding-right: var(--gutter); }
+  .vb-audiences__name { margin-bottom: 2px; }
+  .vb-audiences__tagline { margin-bottom: 4px; font-size: 14px; line-height: 20px; }
+  .vb-families__title { padding-top: 4px; padding-bottom: 2px; }
+}
+
+/* N4 The VB mark (spec 10.5, 10.6; refines the T-055 block above). From 600 to 1023px the row has room for it beside
+   Apply, so it stays there at 26px; below 600px the panel copy closes the open Menu (it sits after the list in the
+   markup), 32px, instead of heading it. */
+@media (min-width: 600px) and (max-width: 1023px) {
+  .vb-bar__inner { grid-template-columns: minmax(0, 1fr) auto auto auto; grid-template-areas: "logo menu vb apply" "nav nav nav nav"; }
+  .vb-bar__vb { display: flex; grid-area: vb; margin: 0 2px; }
+  .vb-bar__vb img { height: 26px; }
+  .vb-bar__vb--panel { display: none; }
+}
+@media (max-width: 599px) {
+  .vb-bar__vb--panel { display: flex; margin: 18px var(--gutter) 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vb-bar__btn::after { transition: none; }
+}
+
+/* N5 The two landing pages (spec 10.8), the labels' targets without JavaScript. Work with us: the four audiences as
+   tiles, two by two (one column below 600px), each with its full name (a link with the arrow), tagline, first step,
+   Help me choose and inbox; Help me choose and the inbox sit at the foot of each tile, so the four line up. Services:
+   the Services menu's own frame on the page, so every service reads on one line from 1280px: four columns with thin
+   rules between them (two columns below 1280px, one below 600px), each family's title over a 2px plum rule, then its
+   services as divided 44px rows at the menu's 16px. */
+.audience-card { display: flex; flex-direction: column; }
+.audience-card__name { margin: 0 0 8px; font-size: 22px; line-height: 28px; }
+.audience-card__name a { color: var(--plum); text-decoration: none; }
+.audience-card__name a:hover { text-decoration: underline; }
+.audience-card__name a::after {
+  content: ""; display: inline-block; width: 20px; height: 20px; margin-left: 8px; vertical-align: -3px;
+  background: var(--arrow) center / contain no-repeat;
+}
+.audience-card__tagline { margin: 0 0 8px; font-size: 18px; line-height: 27px; }
+.audience-card__step { margin: 0 0 20px; color: var(--pewter); font-size: 16px; line-height: 24px; }
+.audience-card__path { margin: auto 0 6px; }
+.audience-card__inbox { margin: 0; color: var(--pewter); font-size: 15px; line-height: 22px; }
+.family-index { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.family-index__col { min-width: 0; margin: 0; padding: 0 28px; border-left: 1px solid var(--card-line); }
+.family-index__col:first-child { padding-left: 0; border-left: 0; }
+.family-index__col:last-child { padding-right: 0; }
+.family-index__title {
+  margin: 0 0 4px; padding-bottom: 10px; border-bottom: 2px solid var(--plum);
+  font-size: 20px; line-height: 26px;
+}
+.family-index__list { list-style: none; margin: 0; padding: 0; }
+.family-index__list li { margin: 0; border-bottom: 1px solid var(--card-line); }
+.family-index__list li:last-child { border-bottom: 0; }
+.family-index__list a { display: flex; align-items: center; min-height: 44px; padding: 8px 0; font-size: 16px; line-height: 22px; }
+@media (max-width: 1279px) {
+  .family-index { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 40px; }
+  .family-index__col:nth-child(odd) { padding-left: 0; border-left: 0; }
+  .family-index__col:nth-child(even) { padding-right: 0; }
+}
+@media (max-width: 599px) {
+  .family-index { grid-template-columns: minmax(0, 1fr); row-gap: 32px; }
+  .family-index__col, .family-index__col:nth-child(even) { padding: 0; border-left: 0; }
+}
+
+/* N6 "In Impact" and "In About" (the first nav review's 7.8): under the breadcrumb on every Impact and About page, the
+   section's pages as one wrapping row of links, the page you are on marked (aria-current, bold ink). With the bar's
+   plain links they make every menu page two clicks from any page without JavaScript. 24px targets from 768px; the
+   phone rule for stand-alone links (44px) below it. */
+.section-pages { padding: 8px 0 0; font-size: 14px; line-height: 20px; }
+.section-pages__inner { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 16px; }
+.section-pages__title { margin: 0; color: var(--pewter); font-weight: 700; }
+.section-pages__list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0 16px; }
+.section-pages__list li { margin: 0; }
+.section-pages__list a { display: inline-block; padding: 2px 0; color: var(--plum); }
+.section-pages__list a[aria-current] { color: var(--ink); font-weight: 700; text-decoration: none; }
+@media (max-width: 767px) {
+  .section-pages { padding-top: 4px; }
+  .section-pages__inner { display: block; }
+  .section-pages__list a { display: inline-flex; align-items: center; min-height: 44px; padding: 0; }
+}
+/* === end of T-099 the new navigation bar (v4) === */
